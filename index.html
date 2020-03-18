@@ -10,45 +10,100 @@
     }
   }
 </script>
+<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+
+<style type="text/css">
+ol {
+  list-style: none;
+  padding-left: 2rem;
+  counter-reset: circle-counter;
+}
+
+ol li {
+  counter-increment: circle-counter;
+}
+ol li:before {
+  border: 1px solid black;
+  content: counter(circle-counter);
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  border-radius: 100%;
+  text-align: center;
+  line-height: 1.5rem;
+  margin-left: -2rem;
+}
+</style>
 </head>
 
-<div style="text-align:left; width:1024px;">
+<body class='sans-serif bg-light-blue'>
 
-<center><h1>bailout.nyc is a citizen-organized fund to help provide financial relief for service workers whose businesses have closed in response to the coronavirus.</h1></center>
+<div class='mw8 ph4 center'>
+  <div class='fl w-100 pa2'>
+    <h1 class='f3 measure'>
+      bailout.nyc is a citizen-organized fund to help provide financial relief for service workers whose businesses have closed in response to the coronavirus.
+    </h1>
+  </div>
 
-<h3>If you're a business affected by Covid-19...</h3>
-<ol>
-<li>If you're a small business owner struggling to pay your staff due to the sudden drop in business, you can <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform">fill out this form</a> to register your business for listing + relief.
-<li>Post a verification message to your Instagram or Twitter account with the text: "<mark>Help support our staff by contributing to them on bailout.nyc. We've set up a Venmo account @username where you can send funds, which will be distributed between all of our staff members.</mark>" and add the link to your post when you submit the form.
-</ol>
+  <div class='fl w-100 w-50-l pa2'>
+    <div class='bg-white br1 pa3'>
+      <h3 class='f4 measure-narrow mt0'>If you own or operate a business affected by Covid-19...</h3>
+      <ol class='measure'>
+        <li class='mb3'>You can
+          <a target="_blank"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform">fill out this form</a>
+          to register your business for listing
+        + relief.</li>
+        <li>Post a verification message to your Instagram or
+          Twitter account with the text: "<mark>Help support our
+            staff by contributing to them on bailout.nyc. We've
+            set up a Venmo account @username where you can send
+          funds, which will be distributed between all of our
+          staff members.</mark>" and add the link to your post
+        when you submit the form.</li>
+      </ol>
+    </div>
+  </div>
+  <div class='fl w-100 w-50-l pa2'>
+    <div class='bg-white br1 pa3'>
+      <h3 class='f4 measure-narrow mt0'>If you are a citizen looking to support workers affected by Covid-19...</h3>
+      <ol class='measure'>
+      <li class='mb3'>Find the Venmo handle of any of your favorite local
+        businesses on bailout.nyc and send them a contribution
+        to help out their staff directly. Consider donating what
+        you might normally spend there.</li>
 
-<h3>If you're  a citizen looking to support workers affected by Covid-19...</h3>
-<ol>
-<li>Find the Venmo handle of any of your favorite local businesses on bailout.nyc and send them a contribution to help out their staff directly. Consider donating what you might normally spend there.
+      <li class='mb3'>Tell your favorite local businesses to register on
+        bailout.nyc so we can all support their staff</li>
 
-<li>Tell your favorite local businesses to register on bailout.nyc so we can all support their staff
+      <li>Venmo <a target="_blank"
+          href="https://venmo.com/bailoutnyc">@bailoutnyc</a> to
+        support all service workers at local businesses. We will
+        either (a) distribute this evenly across all of the
+        registered accounts on bailout.nyc or (b) direct these
+        funds to the loca governmentl to help affected
+        businesses if we can get in touch with the right person
+        (if you know someone we should talk to there, put us in
+        touch!). For example, it would be great if we could use
+        these funds to forgive as much of the loans these
+        businesses receive as possible.</li>
+      </ol>
 
-<li>Venmo <a target="_blank" href="https://venmo.com/bailoutnyc">@bailoutnyc</a> to support all service workers at local businesses. We will either (a) distribute this evenly across all of the registered accounts on bailout.nyc or (b) direct these funds to the loca governmentl to help affected businesses if we can get in touch with the right person (if you know someone we should talk to there, put us in touch!). For example, it would be great if we could use these funds to forgive as much of the loans these businesses receive as possible.
-</ol>
-<div id="tell_me_more_header">
-  <a href="" onClick="showTellMeMore(); return false;">Tell me more...</a>
+      <div id="tell_me_more_header">
+        <a href="" onClick="showTellMeMore(); return false;">Tell me more...</a>
+      </div>
+      <div id="tell_me_more" style="display:none">
+        <p>In order to slow the spread of the coronavirus, the local government is <a target="_blank" href="https://www1.nyc.gov/site/doh/health/health-topics/coronavirus.page">advising</a> restaurants, bars, cafes, nightclubs, movie theaters, small theater houses, and concert venues to close. Elsewhere closures are even more comprehensive.</p>
+        <p>While this is prudent from a public health perspective, these closures will have a real and immediate economic impact to service workers across industries. It could mean missed rent or inability to pay for basic needs for many.</p>
+      </div>
+
+      <br />
+    </div>
+  </div>
+
+  <div class='fl w-100 pt10'>
+    <iframe style="width:100%; height:600px;" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTUVkOjuUxs3HVZaBTzyEyNJiH5GSnrwOmy0-Fd9nMt0fhi1KmUqXM93kUVBbPSFnHLxPUpCLU-WqDd/pubhtml?widget=true&amp;headers=false" width="100%" height="400px;"></iframe>
+  </div>
+  <script id="__bs_script__">//<![CDATA[ document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.7'><\/script>".replace("HOST", location.hostname)); //]]></script>
 </div>
-<div id="tell_me_more" style="display:none">
-<p>In order to slow the spread of the coronavirus, the local government is <a target="_blank" href="https://www1.nyc.gov/site/doh/health/health-topics/coronavirus.page">advising</a> restaurants, bars, cafes, nightclubs, movie theaters, small theater houses, and concert venues to close. Elsewhere closures are even more comprehensive.</p>
-
-<p>While this is prudent from a public health perspective, these closures will have a real and immediate economic impact to service workers across industries. It could mean missed rent or inability to pay for basic needs for many.</p>
-
-<p>The city recognizes the economic stress this will put on service workers, and, in order to incentivize businesses to keep employees on payroll, the administration has <a target="_blank" href="https://www.crainsnewyork.com/small-business/small-businesses-get-loans-wake-outbreak">announced</a> that "businesses with fewer than 100 employees could be eligible for an interest-free loan up to $75,000 as long as they can document a 25% loss in customer receipts because of the coronavirus."</p>
-
-<p>While an interest free loan is a good place to start, we believe we can do more to help those affected, and are raising funds to be distributed to all the businesses affected by this public health crisis.</p>
-
-<p>The economic impacts of the coronavirus will be comparable to a very severe recession -- <a target="_blank" href="http://gabriel-zucman.eu/files/coronavirus2.pdf">some economists</a> estimate direct output loss of 30% for a fiscal quarter, which would equate to an annual GDP loss of 7.5%.</p>
-
-<p>Hopefully, we can anticipate the second order consequences of the coronavirus and proactively work to mitigate them more swiftly than we have addressed the public health concerns.</p>
-
-<p>We cannot all be working alongside all of the heroic healthcare workers testing and treating coronavirus patients, but our goal with this project is to enable every citizen to do something today to mitigate the economic impact suffered by a huge number of service workers.</p>
-</div>
-
-</div>
-<br />
-<iframe style="width:1024px; height:600px;" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTUVkOjuUxs3HVZaBTzyEyNJiH5GSnrwOmy0-Fd9nMt0fhi1KmUqXM93kUVBbPSFnHLxPUpCLU-WqDd/pubhtml?widget=true&amp;headers=false" width="100%" height="400px;"></iframe>
+</body>
