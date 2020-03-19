@@ -59,7 +59,7 @@
       padding:20px;
       background:#fff;
       border-radius:20px;
-      margin:20px;
+      margin-top:20px;
       /* box-shadow: 1px 1px 1px #eee; */
 
     }
@@ -140,7 +140,7 @@
       <div style="font-size:30px; margin-top:20px; font-weight:bold">BAILOUT.NYC ❤️</div>
     </div>
 
-    <div class="fl w-100 pa2">
+    <div class="fl w-100 pa2"">
       <h1 style="font-size:36px;">
         Help Affected Service Workers
       </h1>
@@ -156,7 +156,7 @@
     </div>
 
     <div class="fl w-100 w-50-l pa2">
-      <div class="bg-white br1 pa3">
+      <div class="bg-white br1 pa3" style="border-radius:20px;">
         <h3 class="f4 measure-narrow mt0">
           If you are a citizen looking to support workers affected by Covid-19...
         </h3>
@@ -184,9 +184,7 @@
             In order to slow the spread of the coronavirus, the local government is
             <a
               target="_blank"
-              href="https://www1.nyc.gov/site/doh/health/health-topics/coronavirus.page"
-              >advising</a
-            >
+              href="https://www1.nyc.gov/site/doh/health/health-topics/coronavirus.page">advising</a>
             restaurants, bars, cafes, nightclubs, movie theaters, small theater houses, and concert
             venues to close. Elsewhere closures are even more comprehensive.
           </p>
@@ -195,7 +193,7 @@
             and immediate economic impact to service workers across industries. It could mean missed
             rent or inability to pay for basic needs for many.
           </p>
-          
+
           <p>The city recognizes the economic stress this will put on service workers, and, in order to incentivize businesses to keep employees on payroll, the administration has announced that "businesses with fewer than 100 employees could be eligible for an interest-free loan up to $75,000 as long as they can document a 25% loss in customer receipts because of the coronavirus."</p>
 
         <p>While an interest free loan is a good place to start, we believe we can do more to help those affected, and are raising funds to be distributed to all the businesses affected by this public health crisis.</p>
@@ -208,14 +206,14 @@
 
 
 
-          
+
         </div>
         <br />
       </div>
     </div>
 
     <div class="fl w-100 w-50-l pa2">
-      <div class="bg-white br1 pa3">
+      <div class="bg-white br1 pa3" style="border-radius:20px;">
         <h3 class="f4 measure-narrow mt0">
           If you own or operate a business affected by Covid-19...
         </h3>
@@ -242,7 +240,7 @@
     </div>
 
     <a name="business_list"></a>
-    <div class="fl w-100 pt10">
+    <div class="fl w-100 pt10 pa2">
       <table id="sheet"></table>
     </div>
   </div>
@@ -288,7 +286,7 @@
 
           if (k == 'venmo_handle') {
               let venmo_link = 'https://venmo.com/'+row[k]+'?txn=pay&note=helping%20this%20local%20business%20-%20if%20you%20can%20pls%20support%20local%20businesses%20on%20www.bailout.nyc';
-              td.innerHTML = "<div class='venmo_pill'><a href='"+venmo_link+"'><img src='https://c7.uihere.com/files/461/602/357/venmo-money-payment-square-cash-paypal.jpg' width='25px;'/> Send Venmo to "+row[k]+"</a></div>";
+              td.innerHTML = "<div class='venmo_pill'><a href='"+venmo_link+"'><img src='https://c7.uihere.com/files/461/602/357/venmo-money-payment-square-cash-paypal.jpg' width='25px;'/>Venmo "+row[k]+"</a></div>";
           } else {
               td.textContent = row[k];
           }
