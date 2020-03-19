@@ -237,7 +237,7 @@
     </div>
 
     <div class="button-wrapper" style="margin-bottom:10px; text-align:left; padding-left:10px;">
-      <a class="button cta-button" style="text-decoration:none; margin-top:10px;" href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform"
+      <a class="button cta-button" style="text-decoration:none; margin-top:10px; margin-bottom:20px;" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform"
         >Add Your Business</a
       >
     </div>
@@ -284,7 +284,7 @@
 //https://venmo.com/iqram?txn=pay&amount=0.01&note=Hii,%20I%20worked%20with%20John%20on%20Venmo,%20and%20he%20wants%20to%20hear%20your%20voice.%20Listen%20to%20this%20Ense%20he%20made:%20https://ense.nyc/ense/154602/violetredyellow
 
           if (k == 'venmo_handle') {
-              let venmo_link = 'https://venmo.com/'+row[k]+'?txn=pay&note=helping%20this%20local%20business%20-%20if%20you%20can%20pls%20support%20local%20businesses%20on%20www.bailout.nyc';
+              let venmo_link = 'https://venmo.com/'+row[k]+'?txn=pay&note=Support%20for%20your%20staff%20on%20bailout.nyc%20%E2%9D%A4%EF%B8%8F';
               td.innerHTML = "<div class='venmo_pill'><a href='"+venmo_link+"'><img src='https://c7.uihere.com/files/461/602/357/venmo-money-payment-square-cash-paypal.jpg' width='25px;'/>Venmo "+row[k]+"</a></div>";
           } else {
               td.textContent = row[k];
