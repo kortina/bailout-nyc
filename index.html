@@ -1,4 +1,5 @@
 <head>
+  <title>bailout.nyc</title>
   <style>
     .button-wrapper {
       display: block;
@@ -110,6 +111,7 @@
   </script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/heavy-black-heart_2764.png">
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
 
   <style type="text/css">
@@ -139,7 +141,7 @@
 <body class="sans-serif" style="background-color:#A8DADC">
   <div class="mw8 ph4 center">
     <div style="border-bottom:1px solid rgb(237, 237, 245); padding:10px; padding-bottom:26px;">
-      <div style="font-size:30px; margin-top:20px; font-weight:bold">BAILOUT.NYC ❤️</div>
+      <div style="font-size:30px; margin-top:20px; font-weight:bold">bailout.nyc ❤️</div>
     </div>
 
     <div class="fl w-100 pa2"">
@@ -284,7 +286,7 @@
 //https://venmo.com/iqram?txn=pay&amount=0.01&note=Hii,%20I%20worked%20with%20John%20on%20Venmo,%20and%20he%20wants%20to%20hear%20your%20voice.%20Listen%20to%20this%20Ense%20he%20made:%20https://ense.nyc/ense/154602/violetredyellow
 
           if (k == 'venmo_handle') {
-              let venmo_link = 'https://venmo.com/'+row[k]+'?txn=pay&note=Support%20for%20your%20staff%20on%20bailout.nyc%20%E2%9D%A4%EF%B8%8F';
+              let venmo_link = 'https://venmo.com/'+row[k]+'?txn=pay&note=Support%20for%20your%20staff%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
               td.innerHTML = "<div class='venmo_pill'><a href='"+venmo_link+"'><img src='https://c7.uihere.com/files/461/602/357/venmo-money-payment-square-cash-paypal.jpg' width='25px;'/>Venmo "+row[k]+"</a></div>";
           } else {
               td.textContent = row[k];
