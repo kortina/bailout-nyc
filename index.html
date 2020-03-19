@@ -1,4 +1,31 @@
-<head><script>
+<head>
+<style>
+  .button-wrapper {
+    display: block;
+    text-align: center;
+  }
+
+  .button {
+    border: none;
+    border-radius: 1em;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    display: inline-block;
+    font-size: 1em;
+    padding: 1em 2em;
+    width: auto;
+  }
+
+  .cta-button {
+    background-color: #123456;
+    color: #fff !important;
+  }
+
+  .cta-button:hover {
+    background-color: #000000;
+  }
+</style>
+
+  <script>
   function showTellMeMore() {
     var x = document.getElementById("tell_me_more");
     var y = document.getElementById("tell_me_more_header");
@@ -56,8 +83,12 @@ ol li:before {
       Help Save a Local Business
     </h1>
     <h1 class='f4 measure'>
-      bailout.nyc is a citizen-organized fund to help provide financial relief for service workers whose businesses have closed in response to the coronavirus.
+      Venmo a business below to help provide financial relief for their service workers.
     </h1>
+  </div>
+
+  <div class="button-wrapper" style="margin-bottom:10px; text-align:left; padding-left:10px; ">
+  <a class="button cta-button" style="text-decoration:none;" href="#business_list">Venmo a Business Now</a>
   </div>
 
   <div class='fl w-100 w-50-l pa2'>
@@ -108,10 +139,11 @@ ol li:before {
     </div>
   </div>
 
-
+  <a name ="business_list">
   <div class='fl w-100 pt10'>
-    <iframe style="width:100%; height:600px;" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTUVkOjuUxs3HVZaBTzyEyNJiH5GSnrwOmy0-Fd9nMt0fhi1KmUqXM93kUVBbPSFnHLxPUpCLU-WqDd/pubhtml?widget=true&amp;headers=false" width="100%" height="400px;"></iframe>
+    <iframe style="width:100%; height:1200px;" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTUVkOjuUxs3HVZaBTzyEyNJiH5GSnrwOmy0-Fd9nMt0fhi1KmUqXM93kUVBbPSFnHLxPUpCLU-WqDd/pubhtml?widget=true&amp;headers=false" width="100%" height="400px;"></iframe>
   </div>
+  </a>
   <script id="__bs_script__">//<![CDATA[ document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.7'><\/script>".replace("HOST", location.hostname)); //]]></script>
 </div>
 </body>
