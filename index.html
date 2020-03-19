@@ -8,7 +8,7 @@
 
     .button {
       border: none;
-      border-radius: 1em;
+      border-radius: 4px;
       box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
       display: inline-block;
       font-size: 1em;
@@ -61,7 +61,7 @@
     .place_pill {
       padding:20px;
       background:#fff;
-      border-radius:20px;
+      border-radius:4px;
       margin-top:20px;
       /* box-shadow: 1px 1px 1px #eee; */
 
@@ -74,6 +74,8 @@
 
     .div_content_location {
       color:#666;
+      padding-top: 2px;
+      font-size: 14px;
     }
 
     .venmo_pill {
@@ -82,13 +84,13 @@
 
     .venmo_pill a {
        text-decoration:none;
-       color:#6696CC;
+       background:#6696CC;
        border:1px solid #6696CC;
        padding:15px;
-       border-radius:20px;
+       border-radius:4px;
        display:flex;
        align-items: center;
-       background:white;
+       color:white;
     }
 
     .venmo_pill img {
@@ -130,7 +132,7 @@
       width: 1.5rem;
       height: 1.5rem;
       position: absolute;
-      border-radius: 100%;
+      border-radius: 4px;
       text-align: center;
       line-height: 1.5rem;
       margin-left: -2rem;
@@ -154,17 +156,18 @@
     </div>
 
     <div class="button-wrapper" style="margin-bottom:10px; text-align:left; padding-left:10px; ">
-      <a class="button cta-button" style="text-decoration:none;" href="#business_list"
-        >Venmo a Business Now</a
-      >
+      <div class='venmo_pill'>
+        <a target='_blank' href='https://venmo.com/bailoutnyc?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo @bailoutnyc</a>
+      </div>
     </div>
 
+
     <div class="fl w-100 w-50-l pa2">
-      <div class="bg-white br1 pa3" style="border-radius:20px;">
+      <div class="bg-white br1 pa3" style="border-radius:4px;">
           <h3 class="f4 measure-narrow mt0">
             Service Workers Need Help
           </h3>
-          Many businesses in NYC are closed as a result of Covid-19, resulting in a lot of staff members who are all of a sudden without a reliable income. We've compiled a list of vetted Venmo accounts if you'd like to contribute something to them. The businesses will distribute the funds to their staff members.
+          With most businesses in NYC closed in response Covid-19, many service workers have suddenly lost a reliable income. We've compiled a list of vetted Venmo accounts if you'd like to contribute something to them. The businesses will distribute the funds to their staff members.
 
           <br /> <br />
           If you're not sure who to support, you can Venmo our general fund, <a href="https://venmo.com/bailoutnyc">@bailoutnyc</a>, and we'll evenly divide it among the businesses (we won't take a cut).<br /> <br />
@@ -204,7 +207,7 @@
     </div>
 
     <div class="fl w-100 w-50-l pa2">
-      <div class="bg-white br1 pa3" style="border-radius:20px;">
+      <div class="bg-white br1 pa3" style="border-radius:4px;">
         <h3 class="f4 measure-narrow mt0">
           Add a Business
         </h3>
@@ -236,15 +239,14 @@
     <a name="business_list"></a>
     <div class="fl w-100 pt10 pa2"><div style="margin-top:40px; font-weight:bold; font-size:30px;">Businesses</div>
       <div id="sheet" ></div>
+      <div class="button-wrapper" style="margin-bottom:10px; text-align:left;">
+        <a class="button cta-button" style="text-decoration:none; margin-top:10px; margin-bottom:20px;" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform"
+          >Add Your Business</a
+        >
+      </div>
     </div>
-
-    <div class="button-wrapper" style="margin-bottom:10px; text-align:left; padding-left:10px;">
-      <a class="button cta-button" style="text-decoration:none; margin-top:10px; margin-bottom:20px;" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform"
-        >Add Your Business</a
-      >
-    </div>
-
   </div>
+
 
   <script
     type="text/javascript"
@@ -278,7 +280,7 @@
       SHEET.map((row, i) => {
         let tr = document.createElement('div');
         tr.className = `place_pill`;
-        ['business_name', 'venmo_handle', 'location', 'description'].map(k => {
+        ['business_name', 'location', 'venmo_handle', 'description'].map(k => {
           let td = document.createElement('div');
           td.className = `div_content_${k}`;
 
@@ -286,8 +288,8 @@
 //https://venmo.com/iqram?txn=pay&amount=0.01&note=Hii,%20I%20worked%20with%20John%20on%20Venmo,%20and%20he%20wants%20to%20hear%20your%20voice.%20Listen%20to%20this%20Ense%20he%20made:%20https://ense.nyc/ense/154602/violetredyellow
 
           if (k == 'venmo_handle') {
-              let venmo_link = 'https://venmo.com/'+row[k]+'?txn=pay&note=Support%20for%20your%20staff%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
-              td.innerHTML = "<div class='venmo_pill'><a href='"+venmo_link+"'><img src='https://c7.uihere.com/files/461/602/357/venmo-money-payment-square-cash-paypal.jpg' width='25px;'/>Venmo "+row[k]+"</a></div>";
+              let venmo_link = 'https://venmo.com/'+row[k]+'?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
+              td.innerHTML = "<div class='venmo_pill'><a target='_blank' href='"+venmo_link+"'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo "+row[k]+"</a></div>";
           } else {
               td.textContent = row[k];
           }
