@@ -32,10 +32,11 @@
       border-spacing: 0;
     }
     #sheet {
-      margin: 10px;
+      /* margin: 10px;
       font-size: 14px;
-      background-color: #fff;
+      background-color: #fff; */
     }
+
     #sheet td {
       border-top: 1px solid #efefef;
       border-left: 1px solid #efefef;
@@ -56,10 +57,10 @@
 
     .place_pill {
       padding:20px;
-      background:#f6f6f6;
+      background:#fff;
       border-radius:20px;
-      margin:10px;
-      box-shadow: 1px 1px 1px #999;
+      margin:20px;
+      /* box-shadow: 1px 1px 1px #eee; */
 
     }
 
@@ -273,6 +274,7 @@
 
 
 //https://venmo.com/iqram?txn=pay&amount=0.01&note=Hii,%20I%20worked%20with%20John%20on%20Venmo,%20and%20he%20wants%20to%20hear%20your%20voice.%20Listen%20to%20this%20Ense%20he%20made:%20https://ense.nyc/ense/154602/violetredyellow
+
           if (k == 'venmo_handle') {
               let venmo_link = 'https://venmo.com/'+row[k]+'?txn=pay&note=helping%20this%20local%20business%20-%20if%20you%20can%20pls%20support%20local%20businesses%20on%20www.bailout.nyc';
               td.innerHTML = "<div class='venmo_pill'><a href='"+venmo_link+"'><img src='https://c7.uihere.com/files/461/602/357/venmo-money-payment-square-cash-paypal.jpg' width='25px;'/> Send Venmo to "+row[k]+"</a></div>";
