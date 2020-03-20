@@ -1,6 +1,28 @@
 <head>
   <title>bailout.nyc</title>
+  <link
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
+    body {
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+    .nav {
+      text-align: center;
+      padding: 4px;
+      font-size: 14px;
+    }
+    .nav a {
+      display: inline-block;
+      margin: 0 4px;
+    }
+    a,
+    a:visited,
+    a:active {
+      color: #457b9d;
+    }
     .button-wrapper {
       display: block;
       text-align: center;
@@ -173,10 +195,20 @@
   </style>
 </head>
 
-<body class="sans-serif" style="background-color:#F7F4EA">
+<body style="background-color:#F7F4EA">
+  <a name="home"></a>
+  <div class="nav nav-top center mw7">
+    <a href="#home">Home</a>
+    <a href="#businesses">Businesses</a>
+    <a target="_blank" href="http://venmo.com/bailoutnyc">Venmo</a>
+    <a target="_blank" href="http://instagram.com/bailoutnyc">Instagram</a>
+    <a target="_blank" href="http://twitter.com/bailoutnyc">Twitter</a>
+    <a href="#whos-behind-this">Who's Behind This?</a>
+  </div>
+
   <div class="mw7 ph4 center">
     <div style="border-bottom:1px #6696CC solid; padding:10px; padding-bottom:26px;">
-      <div style="font-size:30px; margin-top:20px; font-weight:bold">bailout.nyc ❤️</div>
+      <div style="font-size:30px; margin-top:40px; font-weight:bold">bailout.nyc ❤️</div>
     </div>
 
     <div class="fl w-100 pa2">
@@ -205,9 +237,9 @@
           Service Workers Need Help
         </h3>
         With businesses closing in response to Covid-19, many service workers have suddenly lost a
-        reliable income. To support them, Venmo @bailoutnyc. We'll evenly distribute the funds to
-        the Venmo accounts of the registered businesses listed below. They'll use the funds to pay
-        staff. (We won't take a cut).
+        reliable income. To support them, Venmo @bailoutnyc. We'll evenly distribute 100% of the
+        funds raised to the Venmo accounts of the registered businesses listed below, so they can
+        continue paying their staff.
         <br />
         <br />
         If you'd like to support the staff of a particular business, you can also find them below
@@ -307,32 +339,39 @@
       </div>
     </div>
 
-    <a name="business_list"></a>
+    <a name="businesses"></a>
     <div class="fl w-100 pt10 pa2">
-      <div style="margin-top:40px; font-weight:bold; font-size:30px;">Businesses</div>
+      <div style="margin-top:20px; font-weight:bold; font-size:30px;">Businesses</div>
       <div id="sheet" style="margin-bottom:15px;"></div>
     </div>
 
-<div style="text-align:center;">
-<div style="font-size:16px;">Who's Behind This?</div>
-<div style="font-size:12px; margin-top:12px; margin-bottom:25px; margin-left:10px; margin-right:10px;">We are a group of friends who used to work at Venmo and started this as a side project to help out service workers.
-  One of the reasons we built Venmo was to help people support each other, especially in times like these.
-
-<br /><br />
- ❤️<br />
- Ny Vo - former Product Manager at Venmo <br />
- Jesse Bentert - former Head of Product at Venmo <br />
- Aneesh Bhoopathy - former designer at Venmo<br />
- Iqram Magdon-Ismail - co-founder of Venmo<br />
- Andrew Kortina - co-founder of Venmo<br /><br />
-
- <a target="_blank" href="http://instagram.com/bailoutnyc">Instagram</a><br />
- <a target="_blank" href="http://twitter.com/bailoutnyc">Twitter</a>
-
-
-</div>
-</div>
-
+    <div style="text-align:center;">
+      <a name="whos-behind-this"></a>
+      <div style="font-size:16px;">Who's Behind This?</div>
+      <div
+        style="font-size:12px; margin-top:12px; margin-bottom:25px; margin-left:10px; margin-right:10px; text-align: center;"
+      >
+        <div style="max-width:410px; margin:0 auto;">
+          We are a group of friends who used to work at Venmo. One of the reasons we built Venmo was
+          to help people support each other, especially in times like these.
+        </div>
+        <br /><br />
+        ❤️<br />
+        Ny Vo - former Product Manager at Venmo <br />
+        Jesse Bentert - former Head of Product at Venmo <br />
+        Aneesh Bhoopathy - former designer at Venmo<br />
+        Iqram Magdon-Ismail - co-founder of Venmo<br />
+        Andrew Kortina - co-founder of Venmo<br /><br />
+      </div>
+    </div>
+    <div class="nav nav-bottom center mw7">
+      <a href="#home">Home</a>
+      <a href="#businesses">Businesses</a>
+      <a target="_blank" href="http://venmo.com/bailoutnyc">Venmo</a>
+      <a target="_blank" href="http://instagram.com/bailoutnyc">Instagram</a>
+      <a target="_blank" href="http://twitter.com/bailoutnyc">Twitter</a>
+      <a href="#whos-behind-this">Who's Behind This?</a>
+    </div>
   </div>
 
   <script
