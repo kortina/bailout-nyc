@@ -150,6 +150,25 @@
     .venmo_pill img {
       margin-right: 10px;
     }
+
+    .gofundme_pill {
+      margin: 20px 0px;
+    }
+
+    .gofundme_pill a {
+      text-decoration: none;
+      background: rgb(0,195,103);
+      border: 1px solid rgb(0,195,103);
+      padding: 15px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    .gofundme_pill img {
+      margin-right: 10px;
+    }
   </style>
 
   <script>
@@ -361,6 +380,7 @@
         '2': 'venmo_handle',
         '3': 'location',
         '4': 'description',
+        '5': 'gofundme_url',
       };
       var rows = [];
       result.feed.entry.map(e => {
@@ -390,24 +410,33 @@
         .map((row, i) => {
           let tr = document.createElement('div');
           tr.className = `place_pill`;
-          ['business_name', 'location', 'venmo_handle', 'description'].map(k => {
+          ['business_name', 'location', 'venmo_handle', 'description', 'gofundme_url'].map(k => {
             let td = document.createElement('div');
             td.className = `div_content_${k}`;
 
             //https://venmo.com/iqram?txn=pay&amount=0.01&note=Hii,%20I%20worked%20with%20John%20on%20Venmo,%20and%20he%20wants%20to%20hear%20your%20voice.%20Listen%20to%20this%20Ense%20he%20made:%20https://ense.nyc/ense/154602/violetredyellow
 
             if (k == 'venmo_handle') {
-              let venmo_link =
-                'https://venmo.com/' +
-                row[k] +
-                '?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
-              td.innerHTML =
-                "<div class='venmo_pill'><a target='_blank' href='" +
-                venmo_link +
-                "'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo " +
-                row[k] +
+              if(row[k] == null && row['gofundme_url'] != null) { //GofundMe
+                td.innerHTML =
+                "<div class='gofundme_pill'><a target='_blank' href='" +
+                row['gofundme_url'] +
+                "'><img src='./assets/gofundmelogo_transparent.png' width='100px;'/>" +
                 '</a></div>';
-            } else {
+              }
+              else { //Venmo
+                let venmo_link =
+                  'https://venmo.com/' +
+                  row[k] +
+                  '?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
+                td.innerHTML =
+                  "<div class='venmo_pill'><a target='_blank' href='" +
+                  venmo_link +
+                  "'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo " +
+                  row[k] +
+                  '</a></div>';
+              }
+            } else if(k == 'business_name' || k == 'location' || k == 'description') {
               td.textContent = row[k];
             }
 
