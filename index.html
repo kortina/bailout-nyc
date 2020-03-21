@@ -572,6 +572,7 @@
                   "\");'><img src='./assets/gofundmelogo_transparent.png' width='86px;'/>" +
                   '</a></div>';
               } else {
+                let venmo_username = (row[k] || '').replace(/[@\s]/g, '');
                 //Venmo
                 let venmo_link =
                   'https://venmo.com/' +
@@ -581,11 +582,11 @@
                   "<div class='venmo_pill'><a target='_blank' href='" +
                   venmo_link +
                   '\' onClick=\'ga("send", "event", "Venmo Buttons", "Clicked individual business", "' +
-                  row[k] +
+                  venmo_username +
                   '", "' +
                   i +
-                  "\");'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo " +
-                  row[k] +
+                  "\");'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo @" +
+                  venmo_username +
                   '</a></div>';
               }
             } else if (k == 'business_name' || k == 'location') {
