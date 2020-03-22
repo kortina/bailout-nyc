@@ -3,7 +3,9 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161542621-1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() {
+      dataLayer.push(arguments);
+    }
     gtag('js', new Date());
 
     gtag('config', 'UA-161542621-1');
@@ -14,8 +16,33 @@
     href="https://fonts.googleapis.com/css?family=Lato|Roboto|Source+Sans+Pro&display=swap"
     rel="stylesheet"
   />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
   <style>
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px; /* Preferred icon size */
+      display: inline-block;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+
+      /* Support for all WebKit browsers. */
+      -webkit-font-smoothing: antialiased;
+      /* Support for Safari and Chrome. */
+      text-rendering: optimizeLegibility;
+
+      /* Support for Firefox. */
+      -moz-osx-font-smoothing: grayscale;
+
+      /* Support for IE. */
+      font-feature-settings: 'liga';
+    }
     body {
       font-family: 'Lato', sans-serif;
       background-color: #dae5f2;
@@ -91,6 +118,37 @@
       align-items: center;
     }
 
+    #business_flex {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+    }
+    #search_icon {
+      color: inherit;
+      font-weight: bold;
+      padding-right: 5px;
+    }
+    #search_icon i {
+      line-height: 24px;
+      font-size: 18px;
+    }
+    #search {
+      flex-grow: 1;
+      vertical-align: bottom;
+      padding: 0;
+      border: none;
+      background: transparent;
+      border-bottom: 1px solid #333;
+      color: #333;
+      outline: none;
+    }
+    #search::placeholder {
+      color: #333;
+    }
+    .flex_item {
+      flex-basis: auto;
+    }
+
     table,
     tr,
     td {
@@ -98,11 +156,6 @@
       margin: 0;
       border-collapse: collapse;
       border-spacing: 0;
-    }
-    #sheet {
-      /* margin: 10px;
-      font-size: 14px;
-      background-color: #fff; */
     }
 
     #sheet td {
@@ -167,8 +220,8 @@
 
     .gofundme_pill a {
       text-decoration: none;
-      background: rgb(0,195,103);
-      border: 1px solid rgb(0,195,103);
+      background: rgb(0, 195, 103);
+      border: 1px solid rgb(0, 195, 103);
       padding: 15px;
       border-radius: 4px;
       display: flex;
@@ -228,12 +281,37 @@
 <body>
   <a name="home"></a>
   <div class="nav nav-top center mw7">
-    <a href="#home" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From top', '0')">Home</a>
-    <a href="#businesses" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked businesses', 'From top', '0')">Businesses</a>
-    <a target="_blank" href="http://venmo.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From top', '0')">Venmo</a>
-    <a target="_blank" href="http://instagram.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Instagram', 'From top', '0')">Instagram</a>
-    <a target="_blank" href="http://twitter.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Twitter', 'From top', '0')">Twitter</a>
-    <a href="#whos-behind-this" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From top', '0')">Who's Behind This?</a>
+    <a href="#home" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From top', '0')"
+      >Home</a
+    >
+    <a
+      href="#businesses"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked businesses', 'From top', '0')"
+      >Businesses</a
+    >
+    <a
+      target="_blank"
+      href="http://venmo.com/bailoutnyc"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From top', '0')"
+      >Venmo</a
+    >
+    <a
+      target="_blank"
+      href="http://instagram.com/bailoutnyc"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Instagram', 'From top', '0')"
+      >Instagram</a
+    >
+    <a
+      target="_blank"
+      href="http://twitter.com/bailoutnyc"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Twitter', 'From top', '0')"
+      >Twitter</a
+    >
+    <a
+      href="#whos-behind-this"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From top', '0')"
+      >Who's Behind This?</a
+    >
   </div>
 
   <div class="mw7 ph4 center">
@@ -254,7 +332,8 @@
       <div class="venmo_pill">
         <a
           target="_blank"
-          href="https://venmo.com/bailoutnyc?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F" onClick="sendGAEvent('send', 'event', 'Venmo Buttons', 'bailoutnyc main button', '0', '0')"
+          href="https://venmo.com/bailoutnyc?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F"
+          onClick="sendGAEvent('send', 'event', 'Venmo Buttons', 'bailoutnyc main button', '0', '0')"
           ><img src="./assets/venmo-transparent.png" width="25px;" />Venmo @bailoutnyc</a
         >
       </div>
@@ -267,7 +346,8 @@
         </h3>
         With businesses closing in response to Covid-19, many service workers have suddenly lost a
         reliable income. To support them, Venmo @bailoutnyc. We'll distribute 100% of the money
-        raised to the Venmo accounts of the registered businesses listed below, so they can send it to their staff.
+        raised to the Venmo accounts of the registered businesses listed below, so they can send it
+        to their staff.
 
         <br />
         <br />
@@ -275,7 +355,11 @@
         and contribute to them directly. <br />
         <br />
         <div id="tell_me_more_header">
-          <a href="" onClick="showTellMeMore(); sendGAEvent('send', 'event', 'Tell me more', 'Clicked tell me more', '0', '0'); return false;">Tell me more...</a>
+          <a
+            href=""
+            onClick="showTellMeMore(); sendGAEvent('send', 'event', 'Tell me more', 'Clicked tell me more', '0', '0'); return false;"
+            >Tell me more...</a
+          >
         </div>
         <div id="tell_me_more" style="display:none">
           <p>
@@ -338,16 +422,29 @@
         <a
           style="font-weight:900;"
           target="_blank"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform" onClick="sendGAEvent('send', 'event', 'Businesses', 'Clicked form link', '0', '0')"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform"
+          onClick="sendGAEvent('send', 'event', 'Businesses', 'Clicked form link', '0', '0')"
           >fill out this form</a
         >
         to register your business for listing + relief.
       </div>
     </div>
 
-
     <div class="fl w-100 pt10 pa2">
-      <div style="margin-top:20px; font-weight:bold; font-size:30px;"><a name="businesses" style="color:inherit; ">Businesses</a></div>
+      <a name="businesses"></a>
+      <div id="business_flex">
+        <div id="search_icon" class="flex_item">
+          <i class="material-icons">search</i>
+        </div>
+        <input
+          autocomplete="off"
+          id="search"
+          class="flex_item"
+          type="text"
+          placeholder="Search businesses..."
+          onkeyup="searchFilter();"
+        />
+      </div>
       <div id="sheet" style="margin-bottom:15px;"></div>
     </div>
 
@@ -357,8 +454,8 @@
         style="font-size:12px; margin-top:12px; margin-bottom:25px; margin-left:10px; margin-right:10px; text-align: center;"
       >
         <div style="max-width:410px; margin:0 auto;">
-          We are a group of friends who used to work at Venmo. We built Venmo to help people
-          support each other, especially in times like these.
+          We are a group of friends who used to work at Venmo. We built Venmo to help people support
+          each other, especially in times like these.
         </div>
         <br /><br />
         ❤️<br />
@@ -370,13 +467,39 @@
       </div>
     </div>
     <div class="nav nav-bottom center mw7">
-      <a href="#home" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From bottom', '0')">Home</a>
-      <a href="#businesses" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked businesses', 'From bottom', '0')">Businesses</a>
-      <a target="_blank" href="http://venmo.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From bottom', '0')">Venmo</a>
-      <a target="_blank" href="http://instagram.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Instagram', 'From bottom', '0')">Instagram</a>
-      <a target="_blank" href="http://twitter.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Twitter', 'From bottom', '0')">Twitter</a>
-      <a href="#whos-behind-this" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From bottom', '0')">Who's Behind This?</a>
-
+      <a
+        href="#home"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From bottom', '0')"
+        >Home</a
+      >
+      <a
+        href="#businesses"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked businesses', 'From bottom', '0')"
+        >Businesses</a
+      >
+      <a
+        target="_blank"
+        href="http://venmo.com/bailoutnyc"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From bottom', '0')"
+        >Venmo</a
+      >
+      <a
+        target="_blank"
+        href="http://instagram.com/bailoutnyc"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Instagram', 'From bottom', '0')"
+        >Instagram</a
+      >
+      <a
+        target="_blank"
+        href="http://twitter.com/bailoutnyc"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Twitter', 'From bottom', '0')"
+        >Twitter</a
+      >
+      <a
+        href="#whos-behind-this"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From bottom', '0')"
+        >Who's Behind This?</a
+      >
     </div>
   </div>
 
@@ -385,17 +508,16 @@
     src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
   ></script>
   <script>
-
-    function showFullDescription(row_number)
-    {
-      document.getElementById("business_" + row_number + "_long_description").style.display = "block";
-      document.getElementById("business_" + row_number + "_description").style.display = "none";
+    function showFullDescription(row_number) {
+      document.getElementById('business_' + row_number + '_long_description').style.display =
+        'block';
+      document.getElementById('business_' + row_number + '_description').style.display = 'none';
     }
 
-    function showShortenedDescription(row_number)
-    {
-      document.getElementById("business_" + row_number + "_long_description").style.display = "none";
-      document.getElementById("business_" + row_number + "_description").style.display = "block";
+    function showShortenedDescription(row_number) {
+      document.getElementById('business_' + row_number + '_long_description').style.display =
+        'none';
+      document.getElementById('business_' + row_number + '_description').style.display = 'block';
     }
 
     function sendGAEvent(send, type, event_category, event_action, event_label, event_value) {
@@ -433,11 +555,7 @@
 
     const drawTable = sheet => {
       let t = document.getElementById('sheet');
-
-      // randomize the order
-      /*sheet.sort((a, b) => {
-        return 0.5 - Math.random();
-      });*/
+      t.innerHTML = '';
 
       sheet
         .filter(row => row.business_name != 'Business Name')
@@ -449,18 +567,23 @@
             td.className = `div_content_${k}`;
             td.id = `business_${i}_${k}`;
 
-
             //https://venmo.com/iqram?txn=pay&amount=0.01&note=Hii,%20I%20worked%20with%20John%20on%20Venmo,%20and%20he%20wants%20to%20hear%20your%20voice.%20Listen%20to%20this%20Ense%20he%20made:%20https://ense.nyc/ense/154602/violetredyellow
 
             if (k == 'venmo_handle') {
-              if(row[k] == null && row['gofundme_url'] != null) { //GofundMe
+              if (row[k] == null && row['gofundme_url'] != null) {
+                //GofundMe
                 td.innerHTML =
-                "<div class='gofundme_pill'><a target='_blank' href='" +
-                row['gofundme_url'] +
-                "' onClick='sendGAEvent(\"send\", \"event\", \"GoFundMe Buttons\", \"Clicked individual business\", \"" + row[k] + "\", \"" + i + "\");'><img src='./assets/gofundmelogo_transparent.png' width='86px;'/>" +
-                '</a></div>';
-              }
-              else { //Venmo
+                  "<div class='gofundme_pill'><a target='_blank' href='" +
+                  row['gofundme_url'] +
+                  '\' onClick=\'sendGAEvent("send", "event", "GoFundMe Buttons", "Clicked individual business", "' +
+                  row[k] +
+                  '", "' +
+                  i +
+                  "\");'><img src='./assets/gofundmelogo_transparent.png' width='86px;'/>" +
+                  '</a></div>';
+              } else {
+                let venmo_username = (row[k] || '').replace(/[@\s]/g, '');
+                //Venmo
                 let venmo_link =
                   'https://venmo.com/' +
                   row[k] +
@@ -468,39 +591,61 @@
                 td.innerHTML =
                   "<div class='venmo_pill'><a target='_blank' href='" +
                   venmo_link +
-                  "' onClick='sendGAEvent(\"send\", \"event\", \"Venmo Buttons\", \"Clicked individual business\", \"" + row[k] + "\", \"" + i + "\");'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo " +
-                  row[k] +
+                  '\' onClick=\'sendGAEvent("send", "event", "Venmo Buttons", "Clicked individual business", "' +
+                  venmo_username +
+                  '", "' +
+                  i +
+                  "\");'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo @" +
+                  venmo_username +
                   '</a></div>';
               }
-            } else if(k == 'business_name' || k == 'location') {
+            } else if (k == 'business_name' || k == 'location') {
               td.textContent = row[k];
-            }
-            else if(k == 'description') {
-
+            } else if (k == 'description') {
               let long_description_div = document.createElement('div');
               long_description_div.classname = `div_content_${k}`;
               long_description_div.id = `business_${i}_long_description`;
 
               var description = row[k];
 
-
-              var shortened_description = description.substring(0,120);
-              if(description.length > 120) {
-                shortened_description = shortened_description + `... <a href='' onClick='showFullDescription(${i}); sendGAEvent("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
-                description = description + ` <a href='' onClick='showShortenedDescription(${i}); return false;'> show less</a>`;
+              var shortened_description = description.substring(0, 120);
+              if (description.length > 120) {
+                shortened_description =
+                  shortened_description +
+                  `... <a href='' onClick='showFullDescription(${i}); sendGAEvent("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
+                description =
+                  description +
+                  ` <a href='' onClick='showShortenedDescription(${i}); return false;'> show less</a>`;
               }
               td.innerHTML = shortened_description;
 
               long_description_div.innerHTML = description;
-              long_description_div.style.display = "none";
+              long_description_div.style.display = 'none';
               tr.appendChild(long_description_div);
-
             }
 
             tr.appendChild(td);
             t.appendChild(tr);
           });
         });
+    };
+    const searchFilter = () => {
+      const searchInput = document.getElementById('search');
+      const q = (searchInput.value || '').trim();
+      console.log('q', q);
+      if (q == '') {
+        drawTable(SHEET);
+        return true;
+      }
+      const terms = q.split(/\s/).map(w => w.trim().toLowerCase());
+      console.log('terms', terms);
+      const results = SHEET.filter(row => {
+        let words = row.business_name.split(/\s/).map(w => w.trim().toLowerCase());
+        // every term much match the head of some word in the business name
+        return terms.every(t => words.some(w => w.indexOf(t) == 0));
+      });
+      drawTable(results);
+      return true;
     };
     var SHEET = [];
     var SHEET_JSON = null;
