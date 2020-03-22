@@ -4,11 +4,11 @@ When we began working on this project to help provide financial relief to servic
 
 Below is a rough description of how we built bailout.nyc. Please feel free to clone this project to create your own version to support your local community.
 
-#### \1. Fork this repo on github
+## 1. Fork this repo on github
 
 Pretty much everything is in `index.html` with some key configuration at the top.
 
-#### \2. Create a registration form on Google Forms
+## 2. Create a registration form on Google Forms
 
 Ours asks for:
 
@@ -31,7 +31,7 @@ Put this in the **configuration** section of `index.html` as the value of `REGIS
 
 ![image](https://user-images.githubusercontent.com/5924/77241236-661dd700-6bac-11ea-944f-0e8dd823be17.png)
 
-#### \3. Create another spreadsheet to use as your database of registered businesses
+## 3. Create another spreadsheet to use as your database of registered businesses
 
 It **MUST** have the following columns, in this order:
 
@@ -47,12 +47,12 @@ Get the `id` portion of the URL from here:
 
 Put this in the **configuration** section of `index.html` as the value of `SPREADSHEET_ID`.
 
-#### \4. When people register, verify them and add them to the sheet.
+## 4. When people register, verify them and add them to the sheet.
 
 They will automatically show up on your landing site.
 
-#### \5. Host your site with GitHub pages
+## 5. Host your site with GitHub pages
 
 ![image](https://user-images.githubusercontent.com/5924/77241254-b39a4400-6bac-11ea-9cf0-0873b7d14174.png)
 
-#### \6. You're live!
+## 6. You're live!
