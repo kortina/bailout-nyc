@@ -1,38 +1,90 @@
 <head>
+  <script>
+    /* configuration */
+    var SPREADSHEET_ID = '1BNUEa4LPVRQ4aY6xw4W5rhh7V18Xy5YnZ5ZWXS7zkN4';
+    var GOOGLE_ANALYTICS_ID = 'UA-161542621-1';
+    var REGISTER_FORM_URL =
+      'https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform';
+    var FULL_STORY_ORG = 'SW787';
+    var FULL_STORY_NAMESPACE = 'FS';
+  </script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161542621-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() {
       dataLayer.push(arguments);
     }
     gtag('js', new Date());
-
-    gtag('config', 'UA-161542621-1');
+    gtag('config', GOOGLE_ANALYTICS_ID);
   </script>
 
   <script>
-  window['_fs_debug'] = false;
-  window['_fs_host'] = 'fullstory.com';
-  window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
-  window['_fs_org'] = 'SW787';
-  window['_fs_namespace'] = 'FS';
-  (function(m,n,e,t,l,o,g,y){
-      if (e in m) {if(m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');} return;}
-      g=m[e]=function(a,b,s){g.q?g.q.push([a,b,s]):g._api(a,b,s);};g.q=[];
-      o=n.createElement(t);o.async=1;o.crossOrigin='anonymous';o.src='https://'+_fs_script;
-      y=n.getElementsByTagName(t)[0];y.parentNode.insertBefore(o,y);
-      g.identify=function(i,v,s){g(l,{uid:i},s);if(v)g(l,v,s)};g.setUserVars=function(v,s){g(l,v,s)};g.event=function(i,v,s){g('event',{n:i,p:v},s)};
-      g.anonymize=function(){g.identify(!!0)};
-      g.shutdown=function(){g("rec",!1)};g.restart=function(){g("rec",!0)};
-      g.log = function(a,b){g("log",[a,b])};
-      g.consent=function(a){g("consent",!arguments.length||a)};
-      g.identifyAccount=function(i,v){o='account';v=v||{};v.acctId=i;g(o,v)};
-      g.clearUserCookie=function(){};
-      g._w={};y='XMLHttpRequest';g._w[y]=m[y];y='fetch';g._w[y]=m[y];
-      if(m[y])m[y]=function(){return g._w[y].apply(this,arguments)};
-      g._v="1.2.0";
-  })(window,document,window['_fs_namespace'],'script','user');
+    window['_fs_debug'] = false;
+    window['_fs_host'] = 'fullstory.com';
+    window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
+    window['_fs_org'] = FULL_STORY_ORG;
+    window['_fs_namespace'] = FULL_STORY_NAMESPACE;
+    (function(m, n, e, t, l, o, g, y) {
+      if (e in m) {
+        if (m.console && m.console.log) {
+          m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');
+        }
+        return;
+      }
+      g = m[e] = function(a, b, s) {
+        g.q ? g.q.push([a, b, s]) : g._api(a, b, s);
+      };
+      g.q = [];
+      o = n.createElement(t);
+      o.async = 1;
+      o.crossOrigin = 'anonymous';
+      o.src = 'https://' + _fs_script;
+      y = n.getElementsByTagName(t)[0];
+      y.parentNode.insertBefore(o, y);
+      g.identify = function(i, v, s) {
+        g(l, { uid: i }, s);
+        if (v) g(l, v, s);
+      };
+      g.setUserVars = function(v, s) {
+        g(l, v, s);
+      };
+      g.event = function(i, v, s) {
+        g('event', { n: i, p: v }, s);
+      };
+      g.anonymize = function() {
+        g.identify(!!0);
+      };
+      g.shutdown = function() {
+        g('rec', !1);
+      };
+      g.restart = function() {
+        g('rec', !0);
+      };
+      g.log = function(a, b) {
+        g('log', [a, b]);
+      };
+      g.consent = function(a) {
+        g('consent', !arguments.length || a);
+      };
+      g.identifyAccount = function(i, v) {
+        o = 'account';
+        v = v || {};
+        v.acctId = i;
+        g(o, v);
+      };
+      g.clearUserCookie = function() {};
+      g._w = {};
+      y = 'XMLHttpRequest';
+      g._w[y] = m[y];
+      y = 'fetch';
+      g._w[y] = m[y];
+      if (m[y])
+        m[y] = function() {
+          return g._w[y].apply(this, arguments);
+        };
+      g._v = '1.2.0';
+    })(window, document, window['_fs_namespace'], 'script', 'user');
   </script>
 
   <title>bailout.nyc</title>
@@ -305,7 +357,9 @@
 <body>
   <a name="home"></a>
   <div class="nav nav-top center mw7">
-    <a href="#home" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From top', '0')"
+    <a
+      href="#home"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From top', '0')"
       >Home</a
     >
     <a
@@ -444,13 +498,17 @@
         staff.<br /><br />
         If you own or operate a business affected by Covid-19,
         <a
+          id="register_business_link"
           style="font-weight:900;"
           target="_blank"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform"
+          href=""
           onClick="sendGAEvent('send', 'event', 'Businesses', 'Clicked form link', '0', '0')"
           >fill out this form</a
         >
         to register your business for listing + relief.
+        <script>
+          document.getElementById('register_business_link').href = REGISTER_FORM_URL;
+        </script>
       </div>
     </div>
 
@@ -545,11 +603,11 @@
     }
 
     function sendGAEvent(send, type, event_category, event_action, event_label, event_value) {
-      if(type == "event") {
+      if (type == 'event') {
         gtag('event', event_action, {
-          'event_category': event_category,
-          'event_label': event_label,
-          'value': event_value
+          event_category: event_category,
+          event_label: event_label,
+          value: event_value,
         });
       }
     }
@@ -656,13 +714,11 @@
     const searchFilter = () => {
       const searchInput = document.getElementById('search');
       const q = (searchInput.value || '').trim();
-      console.log('q', q);
       if (q == '') {
         drawTable(SHEET);
         return true;
       }
       const terms = q.split(/\s/).map(w => w.trim().toLowerCase());
-      console.log('terms', terms);
       const results = SHEET.filter(row => {
         let words = row.business_name.split(/\s/).map(w => w.trim().toLowerCase());
         // every term much match the head of some word in the business name
@@ -673,11 +729,9 @@
     };
     var SHEET = [];
     var SHEET_JSON = null;
-    var json_url =
-      'https://spreadsheets.google.com/feeds/cells/1BNUEa4LPVRQ4aY6xw4W5rhh7V18Xy5YnZ5ZWXS7zkN4/1/public/full?alt=json';
+    var json_url = `https://spreadsheets.google.com/feeds/cells/${SPREADSHEET_ID}/1/public/full?alt=json`;
     $.ajax(json_url).done(function(result) {
       SHEET_JSON = result;
-      console.log(result);
       SHEET = parseSheetResult(result);
       drawTable(SHEET);
     });
