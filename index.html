@@ -12,15 +12,19 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js"></script>
   <script>
+    /****************************************/
+    /* google analytics */
+    /****************************************/
     window.dataLayer = window.dataLayer || [];
     function gtag() {
       dataLayer.push(arguments);
     }
     gtag('js', new Date());
     gtag('config', GOOGLE_ANALYTICS_ID);
-  </script>
 
-  <script>
+    /****************************************/
+    /* full story */
+    /****************************************/
     window['_fs_debug'] = false;
     window['_fs_host'] = 'fullstory.com';
     window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
@@ -86,16 +90,179 @@
         };
       g._v = '1.2.0';
     })(window, document, window['_fs_namespace'], 'script', 'user');
+
+    /****************************************/
+    /* site scripts */
+    /****************************************/
+    var SHEET = [];
+    var JSON_URL = `https://spreadsheets.google.com/feeds/cells/${SPREADSHEET_ID}/1/public/full?alt=json`;
+
+    const showTellMeMore = () => {
+      var x = document.getElementById('tell_me_more');
+      var y = document.getElementById('tell_me_more_header');
+      if (x.style.display === 'none') {
+        x.style.display = 'block';
+        y.innerHTML = '<h3>Tell Me More</h3>';
+      } else {
+        x.style.display = 'none';
+      }
+    };
+
+    const showFullDescription = row_number => {
+      document.getElementById(`business_${row_number}_long_description`).style.display = 'block';
+      document.getElementById(`business_${row_number}_description`).style.display = 'none';
+    };
+
+    const showShortenedDescription = row_number => {
+      document.getElementById(`business_${row_number}_long_description`).style.display = 'none';
+      document.getElementById(`business_${row_number}_description`).style.display = 'block';
+    };
+
+    const sendGAEvent = (send, type, event_category, event_action, event_label, event_value) => {
+      if (type == 'event') {
+        gtag('event', event_action, {
+          event_category: event_category,
+          event_label: event_label,
+          value: event_value,
+        });
+      }
+    };
+
+    const parseSheetResult = result => {
+      let colMap = {
+        '1': 'business_name',
+        '2': 'venmo_handle',
+        '3': 'location',
+        '4': 'description',
+        '5': 'gofundme_url',
+      };
+      var rows = [];
+      result.feed.entry.map(e => {
+        let rowNum = parseInt(e['gs$cell'].row, 10);
+        while (rows.length < rowNum) {
+          rows.push({});
+        }
+        let rowIndex = rowNum - 1;
+        let colNum = e['gs$cell'].col;
+        let key = colMap[colNum];
+        let cellValue = e['gs$cell']['$t'];
+        rows[rowIndex][key] = cellValue;
+      });
+      return rows;
+    };
+
+    const drawTable = sheet => {
+      let t = document.getElementById('sheet');
+      t.innerHTML = '';
+
+      sheet
+        .filter(row => row.business_name != 'Business Name')
+        .map((row, i) => {
+          let outer = document.createElement('div');
+          outer.className = `place_pill`;
+          ['business_name', 'location', 'venmo_handle', 'description', 'gofundme_url'].map(k => {
+            let div = document.createElement('div');
+            div.className = `div_content_${k}`;
+            div.id = `business_${i}_${k}`;
+
+            //https://venmo.com/iqram?txn=pay&amount=0.01&note=Hii,%20I%20worked%20with%20John%20on%20Venmo,%20and%20he%20wants%20to%20hear%20your%20voice.%20Listen%20to%20this%20Ense%20he%20made:%20https://ense.nyc/ense/154602/violetredyellow
+
+            if (k == 'venmo_handle') {
+              if (row[k] == null && row['gofundme_url'] != null) {
+                //GofundMe
+                div.innerHTML =
+                  "<div class='gofundme_pill'><a target='_blank' href='" +
+                  row['gofundme_url'] +
+                  '\' onClick=\'sendGAEvent("send", "event", "GoFundMe Buttons", "Clicked individual business", "' +
+                  row['gofundme_url'] +
+                  '", "' +
+                  i +
+                  "\");'><img src='./assets/gofundmelogo_transparent.png' width='86px;'/>" +
+                  '</a></div>';
+              } else {
+                let venmo_username = (row[k] || '').replace(/[@\s]/g, '');
+                //Venmo
+                let venmo_link =
+                  'https://venmo.com/' +
+                  row[k] +
+                  '?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
+                div.innerHTML =
+                  "<div class='venmo_pill'><a target='_blank' href='" +
+                  venmo_link +
+                  '\' onClick=\'sendGAEvent("send", "event", "Venmo Buttons", "Clicked individual business", "' +
+                  venmo_username +
+                  '", "' +
+                  i +
+                  "\");'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo @" +
+                  venmo_username +
+                  '</a></div>';
+              }
+            } else if (k == 'business_name' || k == 'location') {
+              div.textContent = row[k];
+            } else if (k == 'description') {
+              let long_description_div = document.createElement('div');
+              long_description_div.classname = `div_content_${k}`;
+              long_description_div.id = `business_${i}_long_description`;
+
+              var description = row[k];
+
+              var shortened_description = description.substring(0, 120);
+              if (description.length > 120) {
+                shortened_description =
+                  shortened_description +
+                  `... <a href='' onClick='showFullDescription(${i}); sendGAEvent("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
+                description =
+                  description +
+                  ` <a href='' onClick='showShortenedDescription(${i}); return false;'> show less</a>`;
+              }
+              div.innerHTML = shortened_description;
+
+              long_description_div.innerHTML = description;
+              long_description_div.style.display = 'none';
+              outer.appendChild(long_description_div);
+            }
+
+            outer.appendChild(div);
+            t.appendChild(outer);
+          });
+        });
+    };
+    const searchFilter = () => {
+      const searchInput = document.getElementById('search');
+      const q = (searchInput.value || '').trim();
+      if (q == '') {
+        drawTable(SHEET);
+        return true;
+      }
+      const terms = q.split(/\s/).map(w => w.trim().toLowerCase());
+      const results = SHEET.filter(row => {
+        let words = row.business_name.split(/\s/).map(w => w.trim().toLowerCase());
+        // every term much match the head of some word in the business name
+        return terms.every(t => words.some(w => w.indexOf(t) == 0));
+      });
+      drawTable(results);
+      return true;
+    };
+    const onBodyLoad = () => {
+      $.ajax(JSON_URL).done(function(result) {
+        SHEET = parseSheetResult(result);
+        drawTable(SHEET);
+      });
+    };
   </script>
 
   <title>bailout.nyc</title>
-  <link
-    href="https://fonts.googleapis.com/css?family=Lato|Roboto|Source+Sans+Pro&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-  <style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="icon"
+    href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/heavy-black-heart_2764.png"
+  />
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
+
+  <style type="text/css">
     .material-icons {
       font-family: 'Material Icons';
       font-weight: normal;
@@ -170,17 +337,6 @@
     }
 
     .button_new a {
-      /*background:#123456;
-      color:white;
-      text-decoration:none;
-      border: none;
-      border-radius: 4px;
-      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
-      display: inline-block;
-      font-size: 1em;
-      padding: 1em 2em;
-      width: 97%;*/
-
       text-decoration: none;
       background: #123456;
       border: none;
@@ -309,29 +465,6 @@
     .gofundme_pill img {
       margin-right: 10px;
     }
-  </style>
-
-  <script>
-    function showTellMeMore() {
-      var x = document.getElementById('tell_me_more');
-      var y = document.getElementById('tell_me_more_header');
-      if (x.style.display === 'none') {
-        x.style.display = 'block';
-        y.innerHTML = '<h3>Tell Me More</h3>';
-      } else {
-        x.style.display = 'none';
-      }
-    }
-  </script>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link
-    rel="icon"
-    href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/heavy-black-heart_2764.png"
-  />
-  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
-
-  <style type="text/css">
     ol {
       list-style: none;
       padding-left: 2rem;
@@ -355,7 +488,7 @@
   </style>
 </head>
 
-<body>
+<body onload="onBodyLoad();">
   <a name="home"></a>
   <div class="nav nav-top center mw7">
     <a
@@ -602,151 +735,4 @@
     type="text/javascript"
     src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
   ></script>
-  <script>
-    function showFullDescription(row_number) {
-      document.getElementById('business_' + row_number + '_long_description').style.display =
-        'block';
-      document.getElementById('business_' + row_number + '_description').style.display = 'none';
-    }
-
-    function showShortenedDescription(row_number) {
-      document.getElementById('business_' + row_number + '_long_description').style.display =
-        'none';
-      document.getElementById('business_' + row_number + '_description').style.display = 'block';
-    }
-
-    function sendGAEvent(send, type, event_category, event_action, event_label, event_value) {
-      if (type == 'event') {
-        gtag('event', event_action, {
-          event_category: event_category,
-          event_label: event_label,
-          value: event_value,
-        });
-      }
-    }
-
-    const parseSheetResult = result => {
-      let colMap = {
-        '1': 'business_name',
-        '2': 'venmo_handle',
-        '3': 'location',
-        '4': 'description',
-        '5': 'gofundme_url',
-      };
-      var rows = [];
-      result.feed.entry.map(e => {
-        let rowNum = parseInt(e['gs$cell'].row, 10);
-        while (rows.length < rowNum) {
-          rows.push({});
-        }
-        let rowIndex = rowNum - 1;
-        let colNum = e['gs$cell'].col;
-        let key = colMap[colNum];
-        let cellValue = e['gs$cell']['$t'];
-        rows[rowIndex][key] = cellValue;
-      });
-      return rows;
-    };
-
-    const drawTable = sheet => {
-      let t = document.getElementById('sheet');
-      t.innerHTML = '';
-
-      sheet
-        .filter(row => row.business_name != 'Business Name')
-        .map((row, i) => {
-          let tr = document.createElement('div');
-          tr.className = `place_pill`;
-          ['business_name', 'location', 'venmo_handle', 'description', 'gofundme_url'].map(k => {
-            let td = document.createElement('div');
-            td.className = `div_content_${k}`;
-            td.id = `business_${i}_${k}`;
-
-            //https://venmo.com/iqram?txn=pay&amount=0.01&note=Hii,%20I%20worked%20with%20John%20on%20Venmo,%20and%20he%20wants%20to%20hear%20your%20voice.%20Listen%20to%20this%20Ense%20he%20made:%20https://ense.nyc/ense/154602/violetredyellow
-
-            if (k == 'venmo_handle') {
-              if (row[k] == null && row['gofundme_url'] != null) {
-                //GofundMe
-                td.innerHTML =
-                  "<div class='gofundme_pill'><a target='_blank' href='" +
-                  row['gofundme_url'] +
-                  '\' onClick=\'sendGAEvent("send", "event", "GoFundMe Buttons", "Clicked individual business", "' +
-                  row['gofundme_url'] +
-                  '", "' +
-                  i +
-                  "\");'><img src='./assets/gofundmelogo_transparent.png' width='86px;'/>" +
-                  '</a></div>';
-              } else {
-                let venmo_username = (row[k] || '').replace(/[@\s]/g, '');
-                //Venmo
-                let venmo_link =
-                  'https://venmo.com/' +
-                  row[k] +
-                  '?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
-                td.innerHTML =
-                  "<div class='venmo_pill'><a target='_blank' href='" +
-                  venmo_link +
-                  '\' onClick=\'sendGAEvent("send", "event", "Venmo Buttons", "Clicked individual business", "' +
-                  venmo_username +
-                  '", "' +
-                  i +
-                  "\");'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo @" +
-                  venmo_username +
-                  '</a></div>';
-              }
-            } else if (k == 'business_name' || k == 'location') {
-              td.textContent = row[k];
-            } else if (k == 'description') {
-              let long_description_div = document.createElement('div');
-              long_description_div.classname = `div_content_${k}`;
-              long_description_div.id = `business_${i}_long_description`;
-
-              var description = row[k];
-
-              var shortened_description = description.substring(0, 120);
-              if (description.length > 120) {
-                shortened_description =
-                  shortened_description +
-                  `... <a href='' onClick='showFullDescription(${i}); sendGAEvent("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
-                description =
-                  description +
-                  ` <a href='' onClick='showShortenedDescription(${i}); return false;'> show less</a>`;
-              }
-              td.innerHTML = shortened_description;
-
-              long_description_div.innerHTML = description;
-              long_description_div.style.display = 'none';
-              tr.appendChild(long_description_div);
-            }
-
-            tr.appendChild(td);
-            t.appendChild(tr);
-          });
-        });
-    };
-    const searchFilter = () => {
-      const searchInput = document.getElementById('search');
-      const q = (searchInput.value || '').trim();
-      if (q == '') {
-        drawTable(SHEET);
-        return true;
-      }
-      const terms = q.split(/\s/).map(w => w.trim().toLowerCase());
-      const results = SHEET.filter(row => {
-        let words = row.business_name.split(/\s/).map(w => w.trim().toLowerCase());
-        // every term much match the head of some word in the business name
-        return terms.every(t => words.some(w => w.indexOf(t) == 0));
-      });
-      drawTable(results);
-      return true;
-    };
-    var SHEET = [];
-    var SHEET_JSON = null;
-    var json_url = `https://spreadsheets.google.com/feeds/cells/${SPREADSHEET_ID}/1/public/full?alt=json`;
-    $.ajax(json_url).done(function(result) {
-      SHEET_JSON = result;
-      SHEET = parseSheetResult(result);
-      drawTable(SHEET);
-    });
-  </script>
 </body>
