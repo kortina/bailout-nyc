@@ -56,3 +56,11 @@ They will automatically show up on your landing site.
 ![image](https://user-images.githubusercontent.com/5924/77241254-b39a4400-6bac-11ea-9cf0-0873b7d14174.png)
 
 ## 6. You're live!
+
+Optionally setup analytics with the following configuration settings in `index.html`:
+
+```javascript
+var GOOGLE_ANALYTICS_ID = '_______';
+var FULL_STORY_ORG = '_______';
+var FULL_STORY_NAMESPACE = '_______';
+```
