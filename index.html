@@ -228,12 +228,12 @@
 <body>
   <a name="home"></a>
   <div class="nav nav-top center mw7">
-    <a href="#home" onClick="ga('send', 'event', 'Header Links', 'Clicked home', 'From top', '0')">Home</a>
-    <a href="#businesses" onClick="ga('send', 'event', 'Header Links', 'Clicked businesses', 'From top', '0')">Businesses</a>
-    <a target="_blank" href="http://venmo.com/bailoutnyc" onClick="ga('send', 'event', 'Header Links', 'Clicked Venmo', 'From top', '0')">Venmo</a>
-    <a target="_blank" href="http://instagram.com/bailoutnyc" onClick="ga('send', 'event', 'Header Links', 'Clicked Instagram', 'From top', '0')">Instagram</a>
-    <a target="_blank" href="http://twitter.com/bailoutnyc" onClick="ga('send', 'event', 'Header Links', 'Clicked Twitter', 'From top', '0')">Twitter</a>
-    <a href="#whos-behind-this" onClick="ga('send', 'event', 'Header Links', 'Clicked whos behind this', 'From top', '0')">Who's Behind This?</a>
+    <a href="#home" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From top', '0')">Home</a>
+    <a href="#businesses" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked businesses', 'From top', '0')">Businesses</a>
+    <a target="_blank" href="http://venmo.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From top', '0')">Venmo</a>
+    <a target="_blank" href="http://instagram.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Instagram', 'From top', '0')">Instagram</a>
+    <a target="_blank" href="http://twitter.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Twitter', 'From top', '0')">Twitter</a>
+    <a href="#whos-behind-this" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From top', '0')">Who's Behind This?</a>
   </div>
 
   <div class="mw7 ph4 center">
@@ -254,7 +254,7 @@
       <div class="venmo_pill">
         <a
           target="_blank"
-          href="https://venmo.com/bailoutnyc?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F" onClick="ga('send', 'event', 'Venmo Buttons', 'bailoutnyc main button', '0', '0')"
+          href="https://venmo.com/bailoutnyc?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F" onClick="sendGAEvent('send', 'event', 'Venmo Buttons', 'bailoutnyc main button', '0', '0')"
           ><img src="./assets/venmo-transparent.png" width="25px;" />Venmo @bailoutnyc</a
         >
       </div>
@@ -275,7 +275,7 @@
         and contribute to them directly. <br />
         <br />
         <div id="tell_me_more_header">
-          <a href="" onClick="showTellMeMore(); ga('send', 'event', 'Tell me more', 'Clicked tell me more', '0', '0'); return false;">Tell me more...</a>
+          <a href="" onClick="showTellMeMore(); sendGAEvent('send', 'event', 'Tell me more', 'Clicked tell me more', '0', '0'); return false;">Tell me more...</a>
         </div>
         <div id="tell_me_more" style="display:none">
           <p>
@@ -338,7 +338,7 @@
         <a
           style="font-weight:900;"
           target="_blank"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform" onClick="ga('send', 'event', 'Businesses', 'Clicked form link', '0', '0')"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform" onClick="sendGAEvent('send', 'event', 'Businesses', 'Clicked form link', '0', '0')"
           >fill out this form</a
         >
         to register your business for listing + relief.
@@ -370,12 +370,12 @@
       </div>
     </div>
     <div class="nav nav-bottom center mw7">
-      <a href="#home" onClick="ga('send', 'event', 'Header Links', 'Clicked home', 'From bottom', '0')">Home</a>
-      <a href="#businesses" onClick="ga('send', 'event', 'Header Links', 'Clicked businesses', 'From bottom', '0')">Businesses</a>
-      <a target="_blank" href="http://venmo.com/bailoutnyc" onClick="ga('send', 'event', 'Header Links', 'Clicked Venmo', 'From bottom', '0')">Venmo</a>
-      <a target="_blank" href="http://instagram.com/bailoutnyc" onClick="ga('send', 'event', 'Header Links', 'Clicked Instagram', 'From bottom', '0')">Instagram</a>
-      <a target="_blank" href="http://twitter.com/bailoutnyc" onClick="ga('send', 'event', 'Header Links', 'Clicked Twitter', 'From bottom', '0')">Twitter</a>
-      <a href="#whos-behind-this" onClick="ga('send', 'event', 'Header Links', 'Clicked whos behind this', 'From bottom', '0')">Who's Behind This?</a>
+      <a href="#home" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From bottom', '0')">Home</a>
+      <a href="#businesses" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked businesses', 'From bottom', '0')">Businesses</a>
+      <a target="_blank" href="http://venmo.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From bottom', '0')">Venmo</a>
+      <a target="_blank" href="http://instagram.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Instagram', 'From bottom', '0')">Instagram</a>
+      <a target="_blank" href="http://twitter.com/bailoutnyc" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Twitter', 'From bottom', '0')">Twitter</a>
+      <a href="#whos-behind-this" onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From bottom', '0')">Who's Behind This?</a>
 
     </div>
   </div>
@@ -396,6 +396,16 @@
     {
       document.getElementById("business_" + row_number + "_long_description").style.display = "none";
       document.getElementById("business_" + row_number + "_description").style.display = "block";
+    }
+
+    function sendGAEvent(send, type, event_category, event_action, event_label, event_value) {
+      if(type == "event") {
+        gtag('event', event_action, {
+          'event_category': event_category,
+          'event_label': event_label,
+          'value': event_value
+        });
+      }
     }
 
     const parseSheetResult = result => {
@@ -447,7 +457,7 @@
                 td.innerHTML =
                 "<div class='gofundme_pill'><a target='_blank' href='" +
                 row['gofundme_url'] +
-                "' onClick='ga(\"send\", \"event\", \"GoFundMe Buttons\", \"Clicked individual business\", \"" + row[k] + "\", \"" + i + "\");'><img src='./assets/gofundmelogo_transparent.png' width='86px;'/>" +
+                "' onClick='sendGAEvent(\"send\", \"event\", \"GoFundMe Buttons\", \"Clicked individual business\", \"" + row[k] + "\", \"" + i + "\");'><img src='./assets/gofundmelogo_transparent.png' width='86px;'/>" +
                 '</a></div>';
               }
               else { //Venmo
@@ -458,7 +468,7 @@
                 td.innerHTML =
                   "<div class='venmo_pill'><a target='_blank' href='" +
                   venmo_link +
-                  "' onClick='ga(\"send\", \"event\", \"Venmo Buttons\", \"Clicked individual business\", \"" + row[k] + "\", \"" + i + "\");'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo " +
+                  "' onClick='sendGAEvent(\"send\", \"event\", \"Venmo Buttons\", \"Clicked individual business\", \"" + row[k] + "\", \"" + i + "\");'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo " +
                   row[k] +
                   '</a></div>';
               }
@@ -476,7 +486,7 @@
 
               var shortened_description = description.substring(0,120);
               if(description.length > 120) {
-                shortened_description = shortened_description + `... <a href='' onClick='showFullDescription(${i}); ga("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
+                shortened_description = shortened_description + `... <a href='' onClick='showFullDescription(${i}); sendGAEvent("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
                 description = description + ` <a href='' onClick='showShortenedDescription(${i}); return false;'> show less</a>`;
               }
               td.innerHTML = shortened_description;
