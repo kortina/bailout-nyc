@@ -47,6 +47,12 @@ Get the `id` portion of the URL from here:
 
 Put this in the **configuration** section of `index.html` as the value of `SPREADSHEET_ID`.
 
+### 3.1: Publishing your Google Sheets to the web
+Step 1:
+Click File > Publish to the web…
+Step 2:
+Click Publish, then OK
+
 ## 4. When people register, verify them and add them to the sheet.
 
 They will automatically show up on your landing site.
