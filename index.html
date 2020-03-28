@@ -127,7 +127,8 @@
         });
       }
     };
-
+    var businesses;
+    var number_of_businesses;
     const parseSheetResult = result => {
       let colMap = {
         '1': 'business_name',
@@ -148,6 +149,8 @@
         let cellValue = e['gs$cell']['$t'];
         rows[rowIndex][key] = cellValue;
       });
+      businesses = rows;
+      number_of_businesses = rows.length;
       return rows;
     };
 
@@ -258,6 +261,13 @@
         drawTable(SHEET);
       });
     };
+
+    const randomlyChooseBusiness = () => {
+      var random_business_index = Math.floor((Math.random() * number_of_businesses) + 1);
+      document.getElementById("search").value = businesses[random_business_index]['business_name'];
+      searchFilter();
+    }
+
   </script>
 
   <title>bailout.nyc</title>
@@ -479,6 +489,22 @@
     .gofundme_pill img {
       margin-right: 10px;
     }
+
+    .lucky_pill {
+      margin: 20px 0px;
+    }
+
+    .lucky_pill a {
+      text-decoration: none;
+      background: #F28F3B;
+
+      padding: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
     ol {
       list-style: none;
       padding-left: 2rem;
@@ -664,6 +690,22 @@
           document.getElementById('register_business_link').href = REGISTER_FORM_URL;
         </script>
       </div>
+
+
+      <div class="bg-white br1 pa3" style="border-radius:4px;">
+        <h3 class="f4 measure-narrow mt0">
+          <a name="random"></a>Anyone can use help
+        </h3>
+        <div class="div_content_venmo_handle">
+          <div class="lucky_pill">
+            <a onClick="randomlyChooseBusiness();" href="#random">
+              Randomly choose a business
+            </a>
+          </div>
+        </div>
+        <div>Use this button to randomly choose a business to contribute to.</div>
+      </div>
+
     </div>
 
     <div class="fl w-100 pt10 pa2">
