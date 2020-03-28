@@ -539,6 +539,11 @@
       >About Us</a
     >
     <a
+      href="#partners"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked partners', 'From top', '0')"
+      >Partners</a
+    >
+    <a
       target="_blank"
       href="https://github.com/kortina/bailout-nyc"
       onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Github', 'From top', '0')"
@@ -684,10 +689,13 @@
       <div id="sheet" style="margin-bottom:15px;"></div>
     </div>
 
+
+
+
     <div style="text-align:center;">
       <a name="about-us" style="font-size:16px; color:inherit;">About Us</a>
       <div
-        style="font-size:12px; margin-top:12px; margin-bottom:25px; margin-left:10px; margin-right:10px; text-align: center;"
+        style="font-size:12px; margin-top:12px; margin-bottom:25px; margin-left:10px; margin-right:10px; text-align: center; border-bottom:1px #6696CC solid; padding-bottom:14px; "
       >
         <div style="max-width:410px; margin:0 auto;">
           We are a group of friends who used to work at Venmo. We built Venmo to help people support
@@ -702,6 +710,18 @@
         Andrew Kortina - co-founder of Venmo<br /><br />
       </div>
     </div>
+
+    <div style="clear:both; margin-bottom:30px; text-align:center;">
+    <div >
+      <div>
+      <a name="partners" style="font-size:16px; color:inherit;">Partners</a>
+      <div style="font-size:12px; margin-top:12px; margin-bottom:25px; margin-left:10px; margin-right:10px; text-align: center;">
+        <a target="_blank" href="https://republic.co/" style="border:0px;"><img style="width:100px;" src="https://assets.republic.co/assets/logo/full/black/150x38/logo-07ec836827d3225e54921347fb891e33ae66baaaef71f18379f3b73432fca8e4.svg" /></a>
+      </div>
+      </div>
+    </div>
+  </div>
+
     <div class="nav nav-bottom center mw7">
       <a
         href="#home"
@@ -735,6 +755,11 @@
         href="#about-us"
         onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From bottom', '0')"
         >About Us</a
+      >
+      <a
+        href="#partners"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked partners', 'From bottom', '0')"
+        >Partners</a
       >
       <a
         target="_blank"
