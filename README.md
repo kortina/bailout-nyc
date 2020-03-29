@@ -14,6 +14,7 @@ If you get this up and running for your local area, please create a PR to add yo
 
 - [bailouthbg.com](https://bailouthbg.com/)
 - [bailoutbos.com](http://bailoutbos.com/)
+- [bailouteugene.org](http://bailouteugene.org/)
 
 
 ## 2. Create a registration form on Google Forms
