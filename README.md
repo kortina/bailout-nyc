@@ -8,6 +8,14 @@ Below is a rough description of how we built bailout.nyc. Please feel free to cl
 
 Pretty much everything is in `index.html` with some key configuration at the top.
 
+### 1.1
+
+If you get this up and running for your local area, please create a PR to add yourself to the README here:
+
+- [bailouthbg.com](https://bailouthbg.com/)
+- [bailoutbos.com](http://bailoutbos.com/)
+
+
 ## 2. Create a registration form on Google Forms
 
 Ours asks for:
