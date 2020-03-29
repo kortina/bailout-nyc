@@ -2,9 +2,9 @@
   <script>
     /* Warning: all the code on this page is very sloppy! caveat emptor */
     /* configuration */
-    var SPREADSHEET_ID = '1BNUEa4LPVRQ4aY6xw4W5rhh7V18Xy5YnZ5ZWXS7zkN4';
+    var SPREADSHEET_ID = '1-3n_jQ5aN0wdvqMzOLHwTikMLo9nkeZMRn5dfehn9RI';
     var REGISTER_FORM_URL =
-      'https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform';
+      'https://forms.gle/mWd4a1JRS2SGX6Rq9';
     var GOOGLE_ANALYTICS_ID = 'UA-161542621-1';
     var FULL_STORY_ORG = 'SW787';
     var FULL_STORY_NAMESPACE = 'FS';
@@ -131,11 +131,11 @@
     var number_of_businesses;
     const parseSheetResult = result => {
       let colMap = {
-        '1': 'business_name',
-        '2': 'venmo_handle',
-        '3': 'location',
-        '4': 'description',
-        '5': 'gofundme_url',
+        '2': 'business_name',
+        '8': 'venmo_handle',
+        '4': 'location',
+        '5': 'description',
+        '9': 'gofundme_url',
       };
       var rows = [];
       result.feed.entry.map(e => {
@@ -197,7 +197,7 @@
                 let venmo_link =
                   'https://venmo.com/' +
                   row[k] +
-                  '?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
+                  '?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailoutbos.com%20%E2%9D%A4%EF%B8%8F';
                 div.innerHTML =
                   "<div class='venmo_pill'><a target='_blank' href='" +
                   venmo_link +
@@ -270,12 +270,12 @@
 
   </script>
 
-  <title>bailout.nyc</title>
+  <title>bailoutbos.com</title>
   <meta property="og:image" content="./assets/bailoutlogo.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://bailout.nyc" />
-  <meta property="og:title" content="bailout.nyc" />
-  <meta property="og:description" content="bailout.nyc is a citizen-organized fund to help provide financial relief for service workers whose businesses have closed in response to covid-19." />
+  <meta property="og:url" content="http://bailoutbos.com" />
+  <meta property="og:title" content="bailoutbos.com" />
+  <meta property="og:description" content="bailoutbos.com is a citizen-organized fund to help provide financial relief for service workers whose businesses have closed in response to covid-19." />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
@@ -574,12 +574,12 @@
 
   <div class="mw7 ph4 center">
     <div style="border-bottom:1px #6696CC solid; padding:10px; padding-bottom:26px;">
-      <div style="font-size:30px; margin-top:40px; font-weight:bold">bailout.nyc ❤️</div>
+      <div style="font-size:30px; margin-top:40px; font-weight:bold">bailoutbos.com ❤️</div>
     </div>
 
     <div class="fl w-100 pa2">
       <h1 style="font-size:36px;">
-        Help Service Workers
+        Help Service Workers in Boston
       </h1>
       <h1 class="f4 measure">
         Many are in financial distress due to Covid-19 business closures.
@@ -590,7 +590,7 @@
       <div class="venmo_pill">
         <a
           target="_blank"
-          href="https://venmo.com/bailoutnyc?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F"
+          href="https://venmo.com/bailoutnyc?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailoutbos.com%20%E2%9D%A4%EF%B8%8F"
           onClick="sendGAEvent('send', 'event', 'Venmo Buttons', 'bailoutnyc main button', '0', '0')"
           ><img src="./assets/venmo-transparent.png" width="25px;" />Venmo @bailoutnyc</a
         >
@@ -674,7 +674,7 @@
         <h3 class="f4 measure-narrow mt0">
           Add a Business
         </h3>
-        Tell your favorite local businesses to register on bailout.nyc so we can all support their
+        Tell your favorite local businesses to register on bailoutbos.com so we can all support their
         staff.<br /><br />
         If you own or operate a business affected by Covid-19,
         <a

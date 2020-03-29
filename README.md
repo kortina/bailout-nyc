@@ -1,4 +1,4 @@
-# bailout.nyc
+# bailoutbos.com (bailout.nyc for Boston)
 
 When we began working on this project to help provide financial relief to service workers, one of our **KEY REQUIREMENTS** was to build something *QUICKLY*.
 
