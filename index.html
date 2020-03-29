@@ -8,6 +8,7 @@
     var GOOGLE_ANALYTICS_ID = 'UA-161542621-1';
     var FULL_STORY_ORG = 'SW787';
     var FULL_STORY_NAMESPACE = 'FS';
+    var RANDOMIZE_BUSINESS_LIST = false;
   </script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js"></script>
@@ -157,7 +158,19 @@
 
       sheet
         .filter(row => row.business_name != 'Business Name' && !!row.business_name)
-        .sort((a, b) => {return 0.5 - Math.random()})
+        .sort((a, b) => {
+            if (RANDOMIZE_BUSINESS_LIST) {
+                return 0.5 - Math.random()
+            } else {
+                if (a.business_name.toLowerCase() < b.business_name.toLowerCase()) {
+                    return -1;
+                }
+                if (a.business_name.toLowerCase() > b.business_name.toLowerCase()) {
+                    return 1;
+                }
+                return 0;
+            }
+        })
         .map((row, i) => {
           let outer = document.createElement('div');
           outer.className = `place_pill`;
