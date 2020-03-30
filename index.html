@@ -255,7 +255,7 @@
 
         console.log(ALL_VENMO_USERS);
 
-        $("#all_venmo_users").html('<a target="_blank" href="http://venmo.com/?txn=pay&recipients='+ALL_VENMO_USERS.join(',')+'&note=www.bailout.nyc / paying out venmo" onClick="sendGAEvent(\'send\', \'event\', \'Header Links\', \'Clicked All Venmo\', \'From top\', \'0\')"><img src="./assets/venmo-transparent.png" width="25px;" />Venmo All '+ ALL_VENMO_USERS.length +' Establishments</a>');
+        $("#all_venmo_users").html('<a target="_blank" href="http://venmo.com/?txn=pay&recipients='+ALL_VENMO_USERS.join(',')+'&note=www.bailout.nyc ❤️ / paying restaurants to support service workers" onClick="sendGAEvent(\'send\', \'event\', \'Header Links\', \'Clicked All Venmo\', \'From top\', \'0\')"><img src="./assets/venmo-transparent.png" width="25px;" />Venmo All '+ ALL_VENMO_USERS.length +' Establishments</a>');
     };
     const searchFilter = () => {
       const searchInput = document.getElementById('search');
