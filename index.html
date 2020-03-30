@@ -156,7 +156,11 @@
     };
 
     const drawTable = sheet => {
+
+      let ALL_VENMO_USERS = "";
       let t = document.getElementById('sheet');
+
+
       t.innerHTML = '';
       const sortAlpha = (a, b) => {
         if (a.business_name.toLowerCase() < b.business_name.toLowerCase()) {
@@ -197,8 +201,13 @@
                   "\");'><img src='./assets/gofundmelogo_transparent.png' width='86px;'/>" +
                   '</a></div>';
               } else {
+
+
                 let venmo_username = (row[k] || '').replace(/[@\s]/g, '');
                 //Venmo
+
+                ALL_VENMO_USERS += venmo_username + ",";
+
                 let venmo_link =
                   'https://venmo.com/' +
                   row[k] +
@@ -243,6 +252,10 @@
             t.appendChild(outer);
           });
         });
+
+        console.log(ALL_VENMO_USERS);
+
+        $("#all_venmo_users").html('<a target="_blank" href="http://venmo.com/?txn=pay&recipients='+ALL_VENMO_USERS+'&note=www.bailout.nyc / paying out venmo" onClick="sendGAEvent(\'send\', \'event\', \'Header Links\', \'Clicked All Venmo\', \'From top\', \'0\')"><img src="./assets/venmo-transparent.png" width="25px;" />All Venmo Establishments</a>');
     };
     const searchFilter = () => {
       const searchInput = document.getElementById('search');
@@ -552,6 +565,7 @@
       onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From top', '0')"
       >Venmo</a
     >
+
     <a
       target="_blank"
       href="http://instagram.com/bailoutnyc"
@@ -600,7 +614,11 @@
           ><img src="./assets/venmo-transparent.png" width="25px;" />Venmo @bailoutnyc</a
         >
       </div>
+
+      <div id="all_venmo_users" class="venmo_pill"></div>
+
     </div>
+
 
     <div class="fl w-100 pa2">
       <div class="bg-white br1 pa3" style="border-radius:4px;">
