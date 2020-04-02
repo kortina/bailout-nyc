@@ -10,6 +10,7 @@
     var FULL_STORY_NAMESPACE = 'FS';
     var RANDOMIZE_BUSINESS_LIST = false;
     var REPUBLIC_PARTNERSHIP = true;
+    var ENABLE_VENMO_ALL_BUSINESS_BUTTON = false;
   </script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js"></script>
@@ -267,8 +268,9 @@ const getQueryParams = () => {
         });
 
         console.log(ALL_VENMO_USERS);
-
-        $("#all_venmo_users").html('<a target="_blank" href="http://venmo.com/?txn=pay&recipients='+ALL_VENMO_USERS.join(',')+'&note=www.bailout.nyc ❤️ / paying restaurants to support service workers" onClick="sendGAEvent(\'send\', \'event\', \'Header Links\', \'Clicked All Venmo\', \'From top\', \'0\')"><img src="./assets/venmo-transparent.png" width="25px;" />Venmo All '+ ALL_VENMO_USERS.length +' Establishments</a>');
+        if(ENABLE_VENMO_ALL_BUSINESS_BUTTON) {
+          $("#all_venmo_users").html('<a target="_blank" href="http://venmo.com/?txn=pay&recipients='+ALL_VENMO_USERS.join(',')+'&note=www.bailout.nyc ❤️ / paying restaurants to support service workers" onClick="sendGAEvent(\'send\', \'event\', \'Header Links\', \'Clicked All Venmo\', \'From top\', \'0\')"><img src="./assets/venmo-transparent.png" width="25px;" />Venmo All '+ ALL_VENMO_USERS.length +' Establishments</a>');
+        }
     };
     const searchFilter = () => {
       const searchInput = document.getElementById('search');
