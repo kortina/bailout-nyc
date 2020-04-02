@@ -100,6 +100,7 @@
     var SHEET = [];
     var REF;
     var JSON_URL = `https://spreadsheets.google.com/feeds/cells/${SPREADSHEET_ID}/1/public/full?alt=json`;
+    var VENMO_PAYMENT_MESSAGE = '?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
 
     const showTellMeMore = () => {
       var x = document.getElementById('tell_me_more');
@@ -127,6 +128,10 @@ const getQueryParams = () => {
     field = "ref";
     var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
     REF = reg.exec(href);
+    if(REF != null && (REF.includes("republic") | REF.includes("Republic"))) {
+      VENMO_PAYMENT_MESSAGE = "?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F%20http://republic.co%20will%20match%20this%20donation.";
+      document.getElementById("main_venmo_link").href="https://venmo.com/bailoutnyc" + VENMO_PAYMENT_MESSAGE;
+    }
 };
 
     const sendGAEvent = (send, type, event_category, event_action, event_label, event_value) => {
@@ -224,7 +229,7 @@ const getQueryParams = () => {
                 let venmo_link =
                   'https://venmo.com/' +
                   row[k] +
-                  '?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
+                  VENMO_PAYMENT_MESSAGE;
                 div.innerHTML =
                   "<div class='venmo_pill'><a target='_blank' href='" +
                   venmo_link +
@@ -627,8 +632,10 @@ const getQueryParams = () => {
     </div>
 
     <div class="button-wrapper" style="margin-bottom:10px; text-align:left;">
+
       <div class="venmo_pill">
         <a
+          id="main_venmo_link"
           target="_blank"
           href="https://venmo.com/bailoutnyc?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F"
           onClick="sendGAEvent('send', 'event', 'Venmo Buttons', 'bailoutnyc main button', '0', '0')"
