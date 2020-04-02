@@ -8,6 +8,17 @@ Below is a rough description of how we built bailout.nyc. Please feel free to cl
 
 Pretty much everything is in `index.html` with some key configuration at the top.
 
+### 1.1
+
+If you get this up and running for your local area, please create a PR to add yourself to the README here:
+
+- [bailouthbg.com](https://bailouthbg.com/)
+- [bailoutbos.com](http://bailoutbos.com/)
+- [bailouteugene.org](http://bailouteugene.org/)
+- [mitten.services](https://mitten.services/)
+- [savevanfaves.com](https://savevanfaves.com/)
+
+
 ## 2. Create a registration form on Google Forms
 
 Ours asks for:
@@ -46,6 +57,12 @@ Get the `id` portion of the URL from here:
 ![image](https://user-images.githubusercontent.com/5924/77240847-09202200-6ba8-11ea-9ee0-1ad714bc12a3.png)
 
 Put this in the **configuration** section of `index.html` as the value of `SPREADSHEET_ID`.
+
+### 3.1: Publishing your Google Sheets to the web
+Step 1:
+Click File > Publish to the web…
+Step 2:
+Click Publish, then OK
 
 ## 4. When people register, verify them and add them to the sheet.
 

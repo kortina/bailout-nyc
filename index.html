@@ -8,6 +8,7 @@
     var GOOGLE_ANALYTICS_ID = 'UA-161542621-1';
     var FULL_STORY_ORG = 'SW787';
     var FULL_STORY_NAMESPACE = 'FS';
+    var RANDOMIZE_BUSINESS_LIST = false;
     var REPUBLIC_PARTNERSHIP = true;
   </script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -139,7 +140,8 @@ const getQueryParams = () => {
         });
       }
     };
-
+    var businesses;
+    var number_of_businesses;
     const parseSheetResult = result => {
       let colMap = {
         '1': 'business_name',
@@ -160,24 +162,34 @@ const getQueryParams = () => {
         let cellValue = e['gs$cell']['$t'];
         rows[rowIndex][key] = cellValue;
       });
+      businesses = rows;
+      number_of_businesses = rows.length;
       return rows;
     };
 
     const drawTable = sheet => {
-      let t = document.getElementById('sheet');
-      t.innerHTML = '';
 
+      let ALL_VENMO_USERS = [];
+      let t = document.getElementById('sheet');
+
+
+      t.innerHTML = '';
+      const sortAlpha = (a, b) => {
+        if (a.business_name.toLowerCase() < b.business_name.toLowerCase()) {
+          return -1;
+        }
+        if (a.business_name.toLowerCase() > b.business_name.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      };
+      const sortRandom = (a, b) => {
+        return 0.5 - Math.random();
+      };
+      const sortFunc = RANDOMIZE_BUSINESS_LIST ? sortRandom : sortAlpha;
       sheet
         .filter(row => row.business_name != 'Business Name' && !!row.business_name)
-        .sort((a, b) => {
-          if (a.business_name.toLowerCase() < b.business_name.toLowerCase()) {
-            return -1;
-          }
-          if (a.business_name.toLowerCase() > b.business_name.toLowerCase()) {
-            return 1;
-          }
-          return 0;
-        })
+        .sort(sortFunc)
         .map((row, i) => {
           let outer = document.createElement('div');
           outer.className = `place_pill`;
@@ -201,8 +213,13 @@ const getQueryParams = () => {
                   "\");'><img src='./assets/gofundmelogo_transparent.png' width='86px;'/>" +
                   '</a></div>';
               } else {
+
+
                 let venmo_username = (row[k] || '').replace(/[@\s]/g, '');
                 //Venmo
+
+                ALL_VENMO_USERS.push(venmo_username);
+
                 let venmo_link =
                   'https://venmo.com/' +
                   row[k] +
@@ -226,26 +243,32 @@ const getQueryParams = () => {
               long_description_div.id = `business_${i}_long_description`;
 
               var description = row[k];
-              var shortened_description = description.substring(0, 120);
-              if (description.length > 120) {
-                shortened_description =
-                  shortened_description +
-                  `... <a href='' onClick='showFullDescription(${i}); sendGAEvent("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
-                description =
-                  description +
-                  ` <a href='' onClick='showShortenedDescription(${i}); return false;'> show less</a>`;
-              }
-              div.innerHTML = shortened_description;
+              if(description != null) {
+                var shortened_description = description.substring(0, 120);
+                if (description.length > 120) {
+                  shortened_description =
+                    shortened_description +
+                    `... <a href='' onClick='showFullDescription(${i}); sendGAEvent("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
+                  description =
+                    description +
+                    ` <a href='' onClick='showShortenedDescription(${i}); return false;'> show less</a>`;
+                }
+                div.innerHTML = shortened_description;
 
-              long_description_div.innerHTML = description;
-              long_description_div.style.display = 'none';
-              outer.appendChild(long_description_div);
+                long_description_div.innerHTML = description;
+                long_description_div.style.display = 'none';
+                outer.appendChild(long_description_div);
+              }
             }
 
             outer.appendChild(div);
             t.appendChild(outer);
           });
         });
+
+        console.log(ALL_VENMO_USERS);
+
+        $("#all_venmo_users").html('<a target="_blank" href="http://venmo.com/?txn=pay&recipients='+ALL_VENMO_USERS.join(',')+'&note=www.bailout.nyc ❤️ / paying restaurants to support service workers" onClick="sendGAEvent(\'send\', \'event\', \'Header Links\', \'Clicked All Venmo\', \'From top\', \'0\')"><img src="./assets/venmo-transparent.png" width="25px;" />Venmo All '+ ALL_VENMO_USERS.length +' Establishments</a>');
     };
     const searchFilter = () => {
       const searchInput = document.getElementById('search');
@@ -274,6 +297,13 @@ const getQueryParams = () => {
       getQueryParams();
 
     };
+
+    const randomlyChooseBusiness = () => {
+      var random_business_index = Math.floor((Math.random() * number_of_businesses) + 1);
+      document.getElementById("search").value = businesses[random_business_index]['business_name'];
+      searchFilter();
+    }
+
   </script>
 
   <title>bailout.nyc</title>
@@ -495,6 +525,22 @@ const getQueryParams = () => {
     .gofundme_pill img {
       margin-right: 10px;
     }
+
+    .lucky_pill {
+      margin: 20px 0px;
+    }
+
+    .lucky_pill a {
+      text-decoration: none;
+      background: #F28F3B;
+
+      padding: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
     ol {
       list-style: none;
       padding-left: 2rem;
@@ -537,6 +583,7 @@ const getQueryParams = () => {
       onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From top', '0')"
       >Venmo</a
     >
+
     <a
       target="_blank"
       href="http://instagram.com/bailoutnyc"
@@ -586,7 +633,11 @@ const getQueryParams = () => {
           ><img src="./assets/venmo-transparent.png" width="25px;" />Venmo @bailoutnyc</a
         >
       </div>
+
+      <div id="all_venmo_users" class="venmo_pill"></div>
+
     </div>
+
 
     <div class="fl w-100 pa2">
       <div class="bg-white br1 pa3" style="border-radius:4px;">
@@ -696,6 +747,22 @@ const getQueryParams = () => {
           document.getElementById('register_business_link').href = REGISTER_FORM_URL;
         </script>
       </div>
+
+
+      <div class="bg-white br1 pa3" style="border-radius:4px;">
+        <h3 class="f4 measure-narrow mt0">
+          <a name="random"></a>Anyone can use help
+        </h3>
+        <div class="div_content_venmo_handle">
+          <div class="lucky_pill">
+            <a onClick="randomlyChooseBusiness(); sendGAEvent('send', 'event', 'Randomizer', 'Clicked random business generator', '0', '0');" href="#random">
+              Randomly choose a business
+            </a>
+          </div>
+        </div>
+        <div>Use this button to randomly choose a business to contribute to.</div>
+      </div>
+
     </div>
 
     <div class="fl w-100 pt10 pa2">
@@ -722,7 +789,7 @@ const getQueryParams = () => {
     <div style="text-align:center;">
       <a name="about-us" style="font-size:16px; color:inherit;">About Us</a>
       <div
-        style="font-size:12px; margin-top:12px; margin-bottom:25px; margin-left:10px; margin-right:10px; text-align: center; border-bottom:1px #6696CC solid; padding-bottom:14px; "
+        style="font-size:12px; margin-top:12px; margin-bottom:5px; margin-left:10px; margin-right:10px; text-align: center; "
       >
         <div style="max-width:410px; margin:0 auto;">
           We are a group of friends who used to work at Venmo. We built Venmo to help people support
