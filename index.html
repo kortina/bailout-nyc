@@ -9,6 +9,7 @@
     var FULL_STORY_ORG = 'SW787';
     var FULL_STORY_NAMESPACE = 'FS';
     var RANDOMIZE_BUSINESS_LIST = false;
+    var REPUBLIC_PARTNERSHIP = true;
   </script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js"></script>
@@ -96,6 +97,7 @@
     /* site scripts */
     /****************************************/
     var SHEET = [];
+    var REF;
     var JSON_URL = `https://spreadsheets.google.com/feeds/cells/${SPREADSHEET_ID}/1/public/full?alt=json`;
 
     const showTellMeMore = () => {
@@ -119,7 +121,17 @@
       document.getElementById(`business_${row_number}_description`).style.display = 'block';
     };
 
+const getQueryParams = () => {
+    var href = window.location.href;
+    field = "ref";
+    var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+    REF = reg.exec(href);
+};
+
     const sendGAEvent = (send, type, event_category, event_action, event_label, event_value) => {
+      if(REF != null && (event_category == "GoFundMe Buttons" || event_category == "Venmo Buttons")) {
+        event_category = event_category + " " + REF;
+      }
       if (type == 'event') {
         gtag('event', event_action, {
           event_category: event_category,
@@ -231,21 +243,22 @@
               long_description_div.id = `business_${i}_long_description`;
 
               var description = row[k];
+              if(description != null) {
+                var shortened_description = description.substring(0, 120);
+                if (description.length > 120) {
+                  shortened_description =
+                    shortened_description +
+                    `... <a href='' onClick='showFullDescription(${i}); sendGAEvent("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
+                  description =
+                    description +
+                    ` <a href='' onClick='showShortenedDescription(${i}); return false;'> show less</a>`;
+                }
+                div.innerHTML = shortened_description;
 
-              var shortened_description = description.substring(0, 120);
-              if (description.length > 120) {
-                shortened_description =
-                  shortened_description +
-                  `... <a href='' onClick='showFullDescription(${i}); sendGAEvent("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
-                description =
-                  description +
-                  ` <a href='' onClick='showShortenedDescription(${i}); return false;'> show less</a>`;
+                long_description_div.innerHTML = description;
+                long_description_div.style.display = 'none';
+                outer.appendChild(long_description_div);
               }
-              div.innerHTML = shortened_description;
-
-              long_description_div.innerHTML = description;
-              long_description_div.style.display = 'none';
-              outer.appendChild(long_description_div);
             }
 
             outer.appendChild(div);
@@ -278,6 +291,11 @@
         SHEET = parseSheetResult(result);
         drawTable(SHEET);
       });
+      if(REPUBLIC_PARTNERSHIP) {
+        document.getElementById("republic_partnership").style.display = "block";
+      }
+      getQueryParams();
+
     };
 
     const randomlyChooseBusiness = () => {
@@ -583,6 +601,7 @@
       onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From top', '0')"
       >About Us</a
     >
+
     <a
       target="_blank"
       href="https://github.com/kortina/bailout-nyc"
@@ -634,6 +653,10 @@
         <br />
         If you'd like to support the staff of a particular business, you can also find them below
         and contribute to them directly. <br />
+
+
+
+
         <br />
         <div id="tell_me_more_header">
           <a
@@ -688,8 +711,19 @@
           </p>
         </div>
 
-        <br />
       </div>
+
+      <div id="republic_partnership"
+        class="bg-white br1 pa3"
+        style="border-radius:4px; margin-top:20px; margin-bottom: 15px; display:none;"
+      >
+        <h3 class="f4 measure-narrow mt0">
+          Republic is Matching Donations
+        </h3>
+        <a target="_blank" href="https://republic.co/" style="border:0px; float:left; padding-right:20px;"><img style="width:100px; margin-bottom:5px;" src="https://assets.republic.co/assets/logo/full/black/150x38/logo-07ec836827d3225e54921347fb891e33ae66baaaef71f18379f3b73432fca8e4.svg" /></a><a target="_blank" href="https://republic.co/">Republic</a> is a NY-based investment platform supporting businesses across the country, and is partnering with bailout.nyc to
+        match donations on a weekly basis to support service workers during this time. <span style="font-weight:bold;">Donate now to double your impact!</span>
+      </div>
+
       <div
         class="bg-white br1 pa3"
         style="border-radius:4px; margin-top:20px; margin-bottom: 15px;"
@@ -749,10 +783,13 @@
       <div id="sheet" style="margin-bottom:15px;"></div>
     </div>
 
+
+
+
     <div style="text-align:center;">
       <a name="about-us" style="font-size:16px; color:inherit;">About Us</a>
       <div
-        style="font-size:12px; margin-top:12px; margin-bottom:25px; margin-left:10px; margin-right:10px; text-align: center;"
+        style="font-size:12px; margin-top:12px; margin-bottom:5px; margin-left:10px; margin-right:10px; text-align: center; "
       >
         <div style="max-width:410px; margin:0 auto;">
           We are a group of friends who used to work at Venmo. We built Venmo to help people support
@@ -767,6 +804,8 @@
         Andrew Kortina - co-founder of Venmo<br /><br />
       </div>
     </div>
+
+
     <div class="nav nav-bottom center mw7">
       <a
         href="#home"
