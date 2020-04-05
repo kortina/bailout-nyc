@@ -5,11 +5,11 @@
     var SPREADSHEET_ID = '1XcNLUtC57lSZzTyv4E9Qsjm3aqi9-sUcHgiPM4Rkyqg';
     var REGISTER_FORM_URL =
       'https://forms.gle/abn63VvoJEzvZeCRA';
-    var GOOGLE_ANALYTICS_ID = 'UA-161542621-1';
-    var FULL_STORY_ORG = 'SW787';
-    var FULL_STORY_NAMESPACE = 'FS';
+    var GOOGLE_ANALYTICS_ID = '';
+    var FULL_STORY_ORG = '';
+    var FULL_STORY_NAMESPACE = '';
     var RANDOMIZE_BUSINESS_LIST = false;
-    var REPUBLIC_PARTNERSHIP = true;
+    var REPUBLIC_PARTNERSHIP = false;
     var ENABLE_VENMO_ALL_BUSINESS_BUTTON = false;
   </script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -100,7 +100,7 @@
     var SHEET = [];
     var REF;
     var JSON_URL = `https://spreadsheets.google.com/feeds/cells/${SPREADSHEET_ID}/1/public/full?alt=json`;
-    var VENMO_PAYMENT_MESSAGE = '?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
+    var VENMO_PAYMENT_MESSAGE = '?txn=pay&note=Support%20local%20businesses%20in%20bergen%20county%20on%20http://bailout-bergennj.com%20%E2%9D%A4%EF%B8%8F';
 
     const showTellMeMore = () => {
       var x = document.getElementById('tell_me_more');
@@ -129,8 +129,8 @@ const getQueryParams = () => {
     var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
     REF = reg.exec(href);
     if(REF != null && (REF.includes("republic") | REF.includes("Republic"))) {
-      VENMO_PAYMENT_MESSAGE = "?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F%20http://republic.co%20will%20match%20this%20donation.";
-      document.getElementById("main_venmo_link").href="https://venmo.com/bailoutnyc" + VENMO_PAYMENT_MESSAGE;
+      VENMO_PAYMENT_MESSAGE = "?txn=pay&note=Support%20local%20businesses%20in%20bergen%20county%20on%20http://bailout-bergennj.com%20%E2%9D%A4%EF%B8%8F%20http://republic.co%20will%20match%20this%20donation.";
+      document.getElementById("main_venmo_link").href="https://venmo.com/bailout.bergennj" + VENMO_PAYMENT_MESSAGE;
     }
 };
 
@@ -155,6 +155,7 @@ const getQueryParams = () => {
         '3': 'location',
         '4': 'description',
         '5': 'gofundme_url',
+        '6': 'neighbourhood',
       };
       var rows = [];
       result.feed.entry.map(e => {
@@ -199,7 +200,7 @@ const getQueryParams = () => {
         .map((row, i) => {
           let outer = document.createElement('div');
           outer.className = `place_pill`;
-          ['business_name', 'location', 'venmo_handle', 'description', 'gofundme_url'].map(k => {
+          ['business_name', 'location', 'venmo_handle', 'description', 'gofundme_url', 'neighbourhood'].map(k => {
             let div = document.createElement('div');
             div.className = `div_content_${k}`;
             div.id = `business_${i}_${k}`;
@@ -274,7 +275,7 @@ const getQueryParams = () => {
 
         console.log(ALL_VENMO_USERS);
         if(ENABLE_VENMO_ALL_BUSINESS_BUTTON) {
-          $("#all_venmo_users").html('<a target="_blank" href="http://venmo.com/?txn=pay&recipients='+ALL_VENMO_USERS.join(',')+'&note=www.bailout.nyc ❤️ / paying restaurants to support service workers" onClick="sendGAEvent(\'send\', \'event\', \'Header Links\', \'Clicked All Venmo\', \'From top\', \'0\')"><img src="./assets/venmo-transparent.png" width="25px;" />Venmo All '+ ALL_VENMO_USERS.length +' Establishments</a>');
+          $("#all_venmo_users").html('<a target="_blank" href="http://venmo.com/?txn=pay&recipients='+ALL_VENMO_USERS.join(',')+'&note=www.bailout-bergennj.com ❤️ / paying restaurants to support service workers" onClick="sendGAEvent(\'send\', \'event\', \'Header Links\', \'Clicked All Venmo\', \'From top\', \'0\')"><img src="./assets/venmo-transparent.png" width="25px;" />Venmo All '+ ALL_VENMO_USERS.length +' Establishments</a>');
         }
     };
     const searchFilter = () => {
@@ -293,16 +294,29 @@ const getQueryParams = () => {
       drawTable(results);
       return true;
     };
+
+    const neighbourhoodFilter = () => {
+      var neighbourhoodElement =
+      document.getElementById('neighbourhood');
+      if (neighbourhoodElement.value == 'All'){
+        drawTable(SHEET);
+        return true;
+      }
+      const results = SHEET.filter(row => row.neighbourhood == neighbourhoodElement.value);
+      drawTable(results);
+      return true;
+    }
+
     const onBodyLoad = () => {
       $.ajax(JSON_URL).done(function(result) {
         SHEET = parseSheetResult(result);
         drawTable(SHEET);
       });
-      if(REPUBLIC_PARTNERSHIP) {
+/*      if(REPUBLIC_PARTNERSHIP) {
         document.getElementById("republic_partnership").style.display = "block";
       }
       getQueryParams();
-
+*/
     };
 
     const randomlyChooseBusiness = () => {
@@ -313,12 +327,12 @@ const getQueryParams = () => {
 
   </script>
 
-  <title>bailout.nyc</title>
+  <title>bailout-bergennj</title>
   <meta property="og:image" content="./assets/bailoutlogo.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://bailout.nyc" />
-  <meta property="og:title" content="bailout.nyc" />
-  <meta property="og:description" content="bailout.nyc is a citizen-organized fund to help provide financial relief for service workers whose businesses have closed in response to covid-19." />
+  <meta property="og:url" content="http://bailout-bergennj.com" />
+  <meta property="og:title" content="bailout-bergennj" />
+  <meta property="og:description" content="bailout-bergennj is a citizen-organized fund to help provide financial relief for service workers whose businesses have closed in response to covid-19." />
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
@@ -586,22 +600,9 @@ const getQueryParams = () => {
     >
     <a
       target="_blank"
-      href="http://venmo.com/bailoutnyc"
-      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From top', '0')"
-      >Venmo</a
-    >
-
-    <a
-      target="_blank"
-      href="http://instagram.com/bailoutnyc"
+      href="http://instagram.com/bailout.bergennj"
       onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Instagram', 'From top', '0')"
       >Instagram</a
-    >
-    <a
-      target="_blank"
-      href="http://twitter.com/bailoutnyc"
-      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Twitter', 'From top', '0')"
-      >Twitter</a
     >
     <a
       href="#about-us"
@@ -609,54 +610,53 @@ const getQueryParams = () => {
       >About Us</a
     >
 
-    <a
+<!--    <a
       target="_blank"
       href="https://github.com/kortina/bailout-nyc"
       onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Github', 'From top', '0')"
       >Fork on Github</a
-    >
+    > -->
   </div>
 
   <div class="mw7 ph4 center">
     <div style="border-bottom:1px #6696CC solid; padding:10px; padding-bottom:26px;">
-      <div style="font-size:30px; margin-top:40px; font-weight:bold">bailout.nyc ❤️</div>
+      <div style="font-size:30px; margin-top:40px; font-weight:bold">bailout-bergennj ❤️</div>
+      <div style="font-size:15px; margin-top:10px"> (based from the creators of <a href="https://bailout.nyc">bailout.nyc</a>)</div>
     </div>
 
     <div class="fl w-100 pa2">
       <h1 style="font-size:36px;">
-        Help Service Workers
+        Help Local Businesses in Bergen County
       </h1>
       <h1 class="f4 measure">
         Many are in financial distress due to Covid-19 business closures.
       </h1>
     </div>
 
-    <div class="button-wrapper" style="margin-bottom:10px; text-align:left;">
+   <div class="button-wrapper" style="margin-bottom:10px; text-align:left;">
 
-      <div class="venmo_pill">
+<!--      <div class="venmo_pill">
         <a
           id="main_venmo_link"
           target="_blank"
-          href="https://venmo.com/bailoutnyc?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F"
+          href="https://venmo.com/bailout.bergennj?txn=pay&note=Support%20local%20businesses%20in%20bergen%20county%20on%20http://bailout-bergennj.com%20%E2%9D%A4%EF%B8%8F"
           onClick="sendGAEvent('send', 'event', 'Venmo Buttons', 'bailoutnyc main button', '0', '0')"
-          ><img src="./assets/venmo-transparent.png" width="25px;" />Venmo @bailoutnyc</a
+          ><img src="./assets/venmo-transparent.png" width="25px;" />Venmo @bailout.bergennj</a
         >
       </div>
 
       <div id="all_venmo_users" class="venmo_pill"></div>
 
     </div>
-
+-->
 
     <div class="fl w-100 pa2">
       <div class="bg-white br1 pa3" style="border-radius:4px;">
         <h3 class="f4 measure-narrow mt0">
-          Service Workers Need Help
+          Local Businesses Need Our Help
         </h3>
         With businesses closing in response to Covid-19, many service workers have suddenly lost a
-        reliable income. To support them, Venmo @bailoutnyc. We'll distribute 100% of the money
-        raised to the Venmo accounts of the registered businesses listed below, so they can send it
-        to their staff.
+        reliable income.
 
         <br />
         <br />
@@ -740,7 +740,7 @@ const getQueryParams = () => {
         <h3 class="f4 measure-narrow mt0">
           Add a Business
         </h3>
-        Tell your favorite local businesses to register on bailout.nyc so we can all support their
+        Tell your favorite local businesses to register on bailout-bergennj.com so we can all support their
         staff.<br /><br />
         If you own or operate a business affected by Covid-19,
         <a
@@ -758,7 +758,7 @@ const getQueryParams = () => {
       </div>
 
 
-      <div class="bg-white br1 pa3" style="border-radius:4px;">
+<!--      <div class="bg-white br1 pa3" style="border-radius:4px;">
         <h3 class="f4 measure-narrow mt0">
           <a name="random"></a>Anyone can use help
         </h3>
@@ -770,12 +770,17 @@ const getQueryParams = () => {
           </div>
         </div>
         <div>Use this button to randomly choose a business to contribute to.</div>
-      </div>
+      </div> -->
 
     </div>
 
     <div class="fl w-100 pt10 pa2">
       <a name="businesses"></a>
+      <label> Filter by neighbourhood:</label>
+      <select id="neighbourhood" onchange="neighbourhoodFilter();">
+        <option value="All">All</option>
+<!--        <option value="Bergenfield">Bergenfield</option> -->
+      </select>
       <div id="business_flex">
         <div id="search_icon" class="flex_item">
           <i class="material-icons">search</i>
@@ -801,16 +806,14 @@ const getQueryParams = () => {
         style="font-size:12px; margin-top:12px; margin-bottom:5px; margin-left:10px; margin-right:10px; text-align: center; "
       >
         <div style="max-width:410px; margin:0 auto;">
-          We are a group of friends who used to work at Venmo. We built Venmo to help people support
-          each other, especially in times like these.
+          I was born and raised in Bergen County. I wanted to help support the community in anyway with the COVID-19 pandemic.
+          The website was built to support our local businesses here in Bergen County. Let us
+          extend a helping hand and save our local businesses together.
         </div>
         <br /><br />
         ❤️<br />
-        Ny Vo - former Product Manager at Venmo <br />
-        Jesse Bentert - former Head of Product at Venmo <br />
-        Aneesh Bhoopathy - former designer at Venmo<br />
-        Iqram Magdon-Ismail - co-founder of Venmo<br />
-        Andrew Kortina - co-founder of Venmo<br /><br />
+        Original web design from the creators of bailout.nyc <br /> <br />
+        </div>
       </div>
     </div>
 
@@ -826,35 +829,29 @@ const getQueryParams = () => {
         onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked businesses', 'From bottom', '0')"
         >Businesses</a
       >
-      <a
+<!--      <a
         target="_blank"
-        href="http://venmo.com/bailoutnyc"
+        href="http://venmo.com/bailout.bergennj"
         onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From bottom', '0')"
         >Venmo</a
-      >
+      > -->
       <a
         target="_blank"
-        href="http://instagram.com/bailoutnyc"
+        href="http://instagram.com/bailout.bergennj"
         onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Instagram', 'From bottom', '0')"
         >Instagram</a
-      >
-      <a
-        target="_blank"
-        href="http://twitter.com/bailoutnyc"
-        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Twitter', 'From bottom', '0')"
-        >Twitter</a
       >
       <a
         href="#about-us"
         onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From bottom', '0')"
         >About Us</a
       >
-      <a
+<!--      <a
         target="_blank"
         href="https://github.com/kortina/bailout-nyc"
         onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Github', 'From bottom', '0')"
         >Fork on Github</a
-      >
+      > -->
     </div>
   </div>
 
