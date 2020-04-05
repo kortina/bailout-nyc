@@ -12,6 +12,7 @@ Pretty much everything is in `index.html` with some key configuration at the top
 
 If you get this up and running for your local area, please create a PR to add yourself to the README here:
 
+- [bailout-bergennj.com](https://bailout-bergennj.com/)
 - [bailouthbg.com](https://bailouthbg.com/)
 - [bailoutbos.com](http://bailoutbos.com/)
 - [bailouteugene.org](http://bailouteugene.org/)
