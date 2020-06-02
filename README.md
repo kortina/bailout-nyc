@@ -1,5 +1,11 @@
 # bailout.nyc
 
+**UPDATE 2020-06-02**
+
+We are now redirecting proceeds to Nationwide Bailout Fund to help provide bail for protesters: https://secure.actblue.com/donate/bail_funds_george_floyd
+
+---
+
 When we began working on this project to help provide financial relief to service workers, one of our **KEY REQUIREMENTS** was to build something *QUICKLY*.
 
 Below is a rough description of how we built bailout.nyc. Please feel free to clone this project to create your own version to support your local community.
