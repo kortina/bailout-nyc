@@ -138,7 +138,7 @@
 
   <style type="text/css">
     /************************************** reset **************************************/
-    /* http://meyerweb.com/eric/tools/css/reset/ 
+    /* http://meyerweb.com/eric/tools/css/reset/
       v2.0 | 20110126
       License: none (public domain)
     */
@@ -297,6 +297,9 @@
       background-color: #fff;
       color: #000;
       line-height: 1.4em;
+      padding:20px;
+      background:#000;
+      color:#fff;
     }
     article,
     header,
@@ -334,28 +337,30 @@
     }
     ul > li {
       margin-bottom: 1em;
+      margin-left:15px;
     }
     a,
     a:hover,
     a:visited {
-      color: #333;
+      color: #5E95CA;
     }
     a.venmo_button {
       display: inline-block;
       color: #fff;
       font-weight: 300;
       text-decoration: none;
-      background: #000000;
-      border: 1px solid #000000;
+      background: #5E95CA;
+      border: 1px solid #FFF;
       box-sizing: border-box;
       border-radius: 5px;
       text-align: center;
       padding: 10px;
+      width:100%;
     }
     a.venmo_button:hover,
     a.venmo_button:active {
-      background: #111;
-      color: #fff;
+      background: #5E95CA;
+      color: #5E95CA;
       text-decoration: none;
     }
     footer {
@@ -384,19 +389,18 @@
 
   <header>
     <div>
-      <h1>bailout.nyc ❤️</h1>
-      <img src="assets/fist.png" />
+
+      <img src="assets/bml.png" />
       <div style="clear: both;"></div>
     </div>
   </header>
-  <article>
-    <p><strong>#blacklivesmatter</strong></p>
+  <article style="pa3">
+    <h2></h2>
+
+    <h3 style="color:#F5E23C;">
+      <div style="color:#fff;">Bailout.nyc</div>#blacklivesmatter</h3>
     <p>
-      turn your fear, anger, frustration, and compassion into action that brings about change.
-    </p>
-    <p>
-      we are now donating 100% of our proceeds to the
-      <a href="https://secure.actblue.com/donate/bail_funds_george_floyd">nationwide bail fund</a>.
+      Make a contribution to Bailout through Venmo, and we will donate 100% to Nationwide Bail Fund. You can also donate directly <a href="https://secure.actblue.com/donate/bail_funds_george_floyd">here</a>.
     </p>
     <a
       id="main_venmo_link"
@@ -404,13 +408,17 @@
       target="_blank"
       href="https://venmo.com/bailoutnyc?txn=pay&note=%23blacklivesmatter%20-%20donations%20to%20https%3A%2F%2Fbailout.nyc%2F%20now%20support%20the%20Nationwide%20Bailout%20Fund."
       onClick="sendGAEvent('send', 'event', 'Venmo Buttons', 'bailoutnyc main button', '0', '0')"
-      >donate on venmo</a
-    >
+      >Donate with Venmo</a
+    ><br/><br/><br/>
+
+    <h3>Why Donate?</h3>
     <p>
-      thousands of protesters, who have not been proven guilty, are in jail.
+      The unjust deaths of <a href="https://en.wikipedia.org/wiki/Killing_of_George_Floyd" target="_blank">George Floyd</a>, <a href="https://en.wikipedia.org/wiki/Shooting_of_Ahmaud_Arbery" target="_blank">Ahmaud Arbery</a>, <a href="https://en.wikipedia.org/wiki/Shooting_of_Breonna_Taylor" target="_blank">Breanna Taylor</a> & many more black people have caused nationwide protests to quell the injustice. Thousands of protesters, who have not been proven guilty, are in jail. Your contribution will provide bail for those who cannot afford it.
     </p>
+    <h3>Listen to George Floyd: "I can't breathe," as the Cop, Derek Chauvin, holds his neck to the ground.</h3>
     <p>
-      your contribution will provide bail for those who cannot afford it.
+      <iframe width="100%" height="600" src="https://pro.ense.nyc/ense/257546/indigoorangeviolet?cover=https://upload.wikimedia.org/wikipedia/en/3/3c/George_Floyd_neck_knelt_on_by_police_officer.png" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>
+      <br/><br/>
     </p>
     <h3>Updates</h3>
     <ul>
@@ -430,24 +438,23 @@
     </ul>
 
     <div class="black-stripe">
-      you can still donate to help service workers <a href="/service-workers.html">here</a>.
+      You can still donate to help service workers <a href="/service-workers.html">here</a>.
     </div>
   </article>
-  <footer>
-    <h6>
-      About Us
-    </h6>
+  <footer style="border-top:1px solid #222;margin-top:20px;">
+    <h4 style="font-weight:bold;margin-top:20px;">
+      About
+    </h4>
     <p>
-      we are a group of friends who used to work at venmo.
-      <br /><br />
-      we built venmo to help people support each other,
-      <br />especially in times like these. <br /><br />
+      Venmo was built <a href="https://technical.ly/philly/2010/04/12/venmo-mobile-payments-drives-exchange-for-charities-retail/" target="_blank">to help people support each other</a>,
+      <br/>especially in times like these. Bailout is our effort to continue this vision.<br/>
+      ~<br/>
       ny vo - former product manager at venmo <br />
       jesse bentert - former head of product at venmo <br />
       aneesh bhoopathy - former designer at venmo<br />
-      iqram magdon-ismail - co-founder of venmo<br />
-      andrew kortina - co-founder of venmo<br /><br />
+      iqram & kortina - founder's of venmo<br/><br/>
     </p>
+
     <a
       href="#home"
       onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From bottom', '0')"
