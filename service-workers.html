@@ -1,0 +1,857 @@
+<head>
+  <script>
+    /* Warning: all the code on this page is very sloppy! caveat emptor */
+    /* configuration */
+    var SPREADSHEET_ID = '1BNUEa4LPVRQ4aY6xw4W5rhh7V18Xy5YnZ5ZWXS7zkN4';
+    var REGISTER_FORM_URL =
+      'https://docs.google.com/forms/d/e/1FAIpQLSeVfXDv07KhzMyOWfgbrQvZQOzqmABMIsKXZm7BK9FeKx1iwA/viewform';
+    var GOOGLE_ANALYTICS_ID = 'UA-161542621-1';
+    var FULL_STORY_ORG = 'SW787';
+    var FULL_STORY_NAMESPACE = 'FS';
+    var RANDOMIZE_BUSINESS_LIST = false;
+    var REPUBLIC_PARTNERSHIP = true;
+    var ENABLE_VENMO_ALL_BUSINESS_BUTTON = true;
+  </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js"></script>
+  <script>
+    /****************************************/
+    /* google analytics */
+    /****************************************/
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', GOOGLE_ANALYTICS_ID);
+
+    /****************************************/
+    /* full story */
+    /****************************************/
+    window['_fs_debug'] = false;
+    window['_fs_host'] = 'fullstory.com';
+    window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
+    window['_fs_org'] = FULL_STORY_ORG;
+    window['_fs_namespace'] = FULL_STORY_NAMESPACE;
+    (function (m, n, e, t, l, o, g, y) {
+      if (e in m) {
+        if (m.console && m.console.log) {
+          m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');
+        }
+        return;
+      }
+      g = m[e] = function (a, b, s) {
+        g.q ? g.q.push([a, b, s]) : g._api(a, b, s);
+      };
+      g.q = [];
+      o = n.createElement(t);
+      o.async = 1;
+      o.crossOrigin = 'anonymous';
+      o.src = 'https://' + _fs_script;
+      y = n.getElementsByTagName(t)[0];
+      y.parentNode.insertBefore(o, y);
+      g.identify = function (i, v, s) {
+        g(l, { uid: i }, s);
+        if (v) g(l, v, s);
+      };
+      g.setUserVars = function (v, s) {
+        g(l, v, s);
+      };
+      g.event = function (i, v, s) {
+        g('event', { n: i, p: v }, s);
+      };
+      g.anonymize = function () {
+        g.identify(!!0);
+      };
+      g.shutdown = function () {
+        g('rec', !1);
+      };
+      g.restart = function () {
+        g('rec', !0);
+      };
+      g.log = function (a, b) {
+        g('log', [a, b]);
+      };
+      g.consent = function (a) {
+        g('consent', !arguments.length || a);
+      };
+      g.identifyAccount = function (i, v) {
+        o = 'account';
+        v = v || {};
+        v.acctId = i;
+        g(o, v);
+      };
+      g.clearUserCookie = function () {};
+      g._w = {};
+      y = 'XMLHttpRequest';
+      g._w[y] = m[y];
+      y = 'fetch';
+      g._w[y] = m[y];
+      if (m[y])
+        m[y] = function () {
+          return g._w[y].apply(this, arguments);
+        };
+      g._v = '1.2.0';
+    })(window, document, window['_fs_namespace'], 'script', 'user');
+
+    /****************************************/
+    /* site scripts */
+    /****************************************/
+    var SHEET = [];
+    var REF;
+    var JSON_URL = `https://spreadsheets.google.com/feeds/cells/${SPREADSHEET_ID}/1/public/full?alt=json`;
+    var VENMO_PAYMENT_MESSAGE =
+      '?txn=pay&note=Support%20local%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F';
+
+    const showTellMeMore = () => {
+      var x = document.getElementById('tell_me_more');
+      var y = document.getElementById('tell_me_more_header');
+      if (x.style.display === 'none') {
+        x.style.display = 'block';
+        y.innerHTML = '<h3>Tell Me More</h3>';
+      } else {
+        x.style.display = 'none';
+      }
+    };
+
+    const showFullDescription = (row_number) => {
+      document.getElementById(`business_${row_number}_long_description`).style.display = 'block';
+      document.getElementById(`business_${row_number}_description`).style.display = 'none';
+    };
+
+    const showShortenedDescription = (row_number) => {
+      document.getElementById(`business_${row_number}_long_description`).style.display = 'none';
+      document.getElementById(`business_${row_number}_description`).style.display = 'block';
+    };
+
+    const getQueryParams = () => {
+      var href = window.location.href;
+      field = 'ref';
+      var reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i');
+      REF = reg.exec(href);
+      if (REF != null && REF.includes('republic') | REF.includes('Republic')) {
+        VENMO_PAYMENT_MESSAGE =
+          '?txn=pay&note=Support%20nyc%20service%20workers%20on%20http://bailout.nyc%20%E2%9D%A4%EF%B8%8F%20http://republic.co%20will%20match%20this%20donation.';
+        document.getElementById('main_venmo_link').href =
+          'https://venmo.com/bailoutnyc' + VENMO_PAYMENT_MESSAGE;
+      }
+    };
+
+    const sendGAEvent = (send, type, event_category, event_action, event_label, event_value) => {
+      if (
+        REF != null &&
+        (event_category == 'GoFundMe Buttons' || event_category == 'Venmo Buttons')
+      ) {
+        event_category = event_category + ' ' + REF;
+      }
+      if (type == 'event') {
+        gtag('event', event_action, {
+          event_category: event_category,
+          event_label: event_label,
+          value: event_value,
+        });
+      }
+    };
+    var businesses;
+    var number_of_businesses;
+    const parseSheetResult = (result) => {
+      let colMap = {
+        '1': 'business_name',
+        '2': 'venmo_handle',
+        '3': 'location',
+        '4': 'description',
+        '5': 'gofundme_url',
+      };
+      var rows = [];
+      result.feed.entry.map((e) => {
+        let rowNum = parseInt(e['gs$cell'].row, 10);
+        while (rows.length < rowNum) {
+          rows.push({});
+        }
+        let rowIndex = rowNum - 1;
+        let colNum = e['gs$cell'].col;
+        let key = colMap[colNum];
+        let cellValue = e['gs$cell']['$t'];
+        rows[rowIndex][key] = cellValue;
+      });
+      businesses = rows;
+      number_of_businesses = rows.length;
+      return rows;
+    };
+
+    const drawTable = (sheet) => {
+      let ALL_VENMO_USERS = [];
+      let t = document.getElementById('sheet');
+
+      t.innerHTML = '';
+      const sortAlpha = (a, b) => {
+        if (a.business_name.toLowerCase() < b.business_name.toLowerCase()) {
+          return -1;
+        }
+        if (a.business_name.toLowerCase() > b.business_name.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      };
+      const sortRandom = (a, b) => {
+        return 0.5 - Math.random();
+      };
+      const sortFunc = RANDOMIZE_BUSINESS_LIST ? sortRandom : sortAlpha;
+      sheet
+        .filter((row) => row.business_name != 'Business Name' && !!row.business_name)
+        .sort(sortFunc)
+        .map((row, i) => {
+          let outer = document.createElement('div');
+          outer.className = `place_pill`;
+          ['business_name', 'location', 'venmo_handle', 'description', 'gofundme_url'].map((k) => {
+            let div = document.createElement('div');
+            div.className = `div_content_${k}`;
+            div.id = `business_${i}_${k}`;
+
+            //https://venmo.com/iqram?txn=pay&amount=0.01&note=Hii,%20I%20worked%20with%20John%20on%20Venmo,%20and%20he%20wants%20to%20hear%20your%20voice.%20Listen%20to%20this%20Ense%20he%20made:%20https://ense.nyc/ense/154602/violetredyellow
+
+            if (k == 'venmo_handle') {
+              if (row[k] == null && row['gofundme_url'] != null) {
+                //GofundMe
+                div.innerHTML =
+                  "<div class='gofundme_pill'><a target='_blank' href='" +
+                  row['gofundme_url'] +
+                  '\' onClick=\'sendGAEvent("send", "event", "GoFundMe Buttons", "Clicked individual business", "' +
+                  row['gofundme_url'] +
+                  '", "' +
+                  i +
+                  "\");'><img src='./assets/gofundmelogo_transparent.png' width='86px;'/>" +
+                  '</a></div>';
+              } else {
+                let venmo_username = (row[k] || '').replace(/[@\s]/g, '');
+                //Venmo
+
+                ALL_VENMO_USERS.push(venmo_username);
+
+                let venmo_link = 'https://venmo.com/' + row[k] + VENMO_PAYMENT_MESSAGE;
+                div.innerHTML =
+                  "<div class='venmo_pill'><a target='_blank' href='" +
+                  venmo_link +
+                  '\' onClick=\'sendGAEvent("send", "event", "Venmo Buttons", "Clicked individual business", "' +
+                  venmo_username +
+                  '", "' +
+                  i +
+                  "\");'><img src='./assets/venmo-transparent.png' width='25px;'/>Venmo @" +
+                  venmo_username +
+                  '</a></div>';
+              }
+            } else if (k == 'business_name' || k == 'location') {
+              div.textContent = row[k];
+            } else if (k == 'description') {
+              let long_description_div = document.createElement('div');
+              long_description_div.classname = `div_content_${k}`;
+              long_description_div.id = `business_${i}_long_description`;
+
+              var description = row[k];
+              if (description != null) {
+                var shortened_description = description.substring(0, 120);
+                if (description.length > 120) {
+                  shortened_description =
+                    shortened_description +
+                    `... <a href='' onClick='showFullDescription(${i}); sendGAEvent("send", "event", "businesses", "Clicked see more", "0", "0"); return false;'> show more</a>`;
+                  description =
+                    description +
+                    ` <a href='' onClick='showShortenedDescription(${i}); return false;'> show less</a>`;
+                }
+                div.innerHTML = shortened_description;
+
+                long_description_div.innerHTML = description;
+                long_description_div.style.display = 'none';
+                outer.appendChild(long_description_div);
+              }
+            }
+
+            outer.appendChild(div);
+            t.appendChild(outer);
+          });
+        });
+
+      console.log(ALL_VENMO_USERS);
+      if (ENABLE_VENMO_ALL_BUSINESS_BUTTON) {
+        $('#all_venmo_users').html(
+          '<a target="_blank" href="http://venmo.com/?txn=pay&recipients=' +
+            ALL_VENMO_USERS.join(',') +
+            "&note=www.bailout.nyc ❤️ / paying restaurants to support service workers\" onClick=\"sendGAEvent('send', 'event', 'Header Links', 'Clicked All Venmo', 'From top', '0')\"><img src=\"./assets/venmo-transparent.png\" width=\"25px;\" />Venmo All " +
+            ALL_VENMO_USERS.length +
+            ' Establishments</a>'
+        );
+      }
+    };
+    const searchFilter = () => {
+      const searchInput = document.getElementById('search');
+      const q = (searchInput.value || '').trim();
+      if (q == '') {
+        drawTable(SHEET);
+        return true;
+      }
+      const terms = q.split(/\s/).map((w) => w.trim().toLowerCase());
+      const results = SHEET.filter((row) => {
+        let words = row.business_name.split(/\s/).map((w) => w.trim().toLowerCase());
+        // every term much match the head of some word in the business name
+        return terms.every((t) => words.some((w) => w.indexOf(t) == 0));
+      });
+      drawTable(results);
+      return true;
+    };
+    const onBodyLoad = () => {
+      $.ajax(JSON_URL).done(function (result) {
+        SHEET = parseSheetResult(result);
+        drawTable(SHEET);
+      });
+      if (REPUBLIC_PARTNERSHIP) {
+        document.getElementById('republic_partnership').style.display = 'block';
+      }
+      getQueryParams();
+    };
+
+    const randomlyChooseBusiness = () => {
+      var random_business_index = Math.floor(Math.random() * number_of_businesses + 1);
+      document.getElementById('search').value = businesses[random_business_index]['business_name'];
+      searchFilter();
+    };
+  </script>
+
+  <title>bailout.nyc</title>
+  <meta property="og:image" content="./assets/bailoutlogo.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://bailout.nyc" />
+  <meta property="og:title" content="bailout.nyc" />
+  <meta
+    property="og:description"
+    content="bailout.nyc is a citizen-organized fund to help provide financial relief for service workers whose businesses have closed in response to covid-19."
+  />
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="icon"
+    href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/heavy-black-heart_2764.png"
+  />
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css" />
+
+  <style type="text/css">
+    .material-icons {
+      font-family: 'Material Icons';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px; /* Preferred icon size */
+      display: inline-block;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: normal;
+      word-wrap: normal;
+      white-space: nowrap;
+      direction: ltr;
+
+      /* Support for all WebKit browsers. */
+      -webkit-font-smoothing: antialiased;
+      /* Support for Safari and Chrome. */
+      text-rendering: optimizeLegibility;
+
+      /* Support for Firefox. */
+      -moz-osx-font-smoothing: grayscale;
+
+      /* Support for IE. */
+      font-feature-settings: 'liga';
+    }
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: #dae5f2;
+    }
+    .nav {
+      text-align: center;
+      padding: 4px;
+      font-size: 14px;
+    }
+    .nav a {
+      display: inline-block;
+      margin: 0 4px;
+    }
+    a,
+    a:visited,
+    a:active {
+      color: #457b9d;
+    }
+    .button-wrapper {
+      display: block;
+      text-align: center;
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+    .button {
+      border: none;
+      border-radius: 4px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+      display: inline-block;
+      font-size: 1em;
+      padding: 1em 2em;
+      width: 100%;
+      max-width: 462px;
+    }
+
+    .cta-button {
+      background-color: #123456;
+      color: #f1faee !important;
+    }
+
+    .cta-button:hover {
+      background-color: #457b9d;
+    }
+
+    .button_new {
+      text-align: center;
+      align-items: center;
+    }
+
+    .button_new a {
+      text-decoration: none;
+      background: #123456;
+      border: none;
+      padding: 18px;
+      border-radius: 4px;
+      display: inline-block;
+      width: 100%;
+      align-items: center;
+      color: white;
+      text-align: center;
+      text-align: center;
+      align-items: center;
+    }
+
+    #business_flex {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+    }
+    #search_icon {
+      color: inherit;
+      font-weight: bold;
+      padding-right: 5px;
+    }
+    #search_icon i {
+      line-height: 24px;
+      font-size: 18px;
+    }
+    #search {
+      flex-grow: 1;
+      vertical-align: bottom;
+      padding: 0;
+      border: none;
+      background: transparent;
+      border-bottom: 1px solid #333;
+      color: #333;
+      outline: none;
+    }
+    #search::placeholder {
+      color: #333;
+    }
+    .flex_item {
+      flex-basis: auto;
+    }
+
+    table,
+    tr,
+    td {
+      padding: 0;
+      margin: 0;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    #sheet td {
+      border-top: 1px solid #efefef;
+      border-left: 1px solid #efefef;
+      padding: 4px;
+      color: #333;
+      vertical-align: top;
+    }
+    #sheet tr {
+      border-bottom: 1px solid #efefef;
+      border-right: 1px solid #efefef;
+    }
+    #sheet .tr_0 td {
+      font-weight: bold;
+    }
+    #sheet .td_description {
+      width: 400px;
+    }
+
+    .place_pill {
+      padding: 20px;
+      background: #fff;
+      border-radius: 4px;
+      margin-top: 20px;
+      /* box-shadow: 1px 1px 1px #eee; */
+    }
+
+    .div_content_business_name {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .div_content_location {
+      color: #666;
+      padding-top: 2px;
+      font-size: 14px;
+    }
+
+    .venmo_pill {
+      margin: 20px 0px;
+    }
+
+    .venmo_pill a {
+      text-decoration: none;
+      background: #6696cc;
+      border: 1px solid #6696cc;
+      padding: 15px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    .venmo_pill img {
+      margin-right: 10px;
+    }
+
+    .gofundme_pill {
+      margin: 20px 0px;
+    }
+
+    .gofundme_pill a {
+      text-decoration: none;
+      background: rgb(0, 195, 103);
+      border: 1px solid rgb(0, 195, 103);
+      padding: 15px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    .gofundme_pill img {
+      margin-right: 10px;
+    }
+
+    .lucky_pill {
+      margin: 20px 0px;
+    }
+
+    .lucky_pill a {
+      text-decoration: none;
+      background: #f28f3b;
+
+      padding: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    ol {
+      list-style: none;
+      padding-left: 2rem;
+      counter-reset: circle-counter;
+    }
+
+    ol li {
+      counter-increment: circle-counter;
+    }
+    ol li:before {
+      border: 1px solid black;
+      content: counter(circle-counter);
+      width: 1.5rem;
+      height: 1.5rem;
+      position: absolute;
+      border-radius: 4px;
+      text-align: center;
+      line-height: 1.5rem;
+      margin-left: -2rem;
+    }
+  </style>
+</head>
+
+<body onload="onBodyLoad();">
+  <a name="home"></a>
+  <div class="nav nav-top center mw7">
+    <a
+      href="#home"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From top', '0')"
+      >Home</a
+    >
+    <a
+      href="#businesses"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked businesses', 'From top', '0')"
+      >Businesses</a
+    >
+    <a
+      target="_blank"
+      href="http://venmo.com/bailoutnyc"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From top', '0')"
+      >Venmo</a
+    >
+
+    <a
+      target="_blank"
+      href="http://instagram.com/bailoutnyc"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Instagram', 'From top', '0')"
+      >Instagram</a
+    >
+    <a
+      target="_blank"
+      href="http://twitter.com/bailoutnyc"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Twitter', 'From top', '0')"
+      >Twitter</a
+    >
+    <a
+      href="#about-us"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From top', '0')"
+      >About Us</a
+    >
+
+    <a
+      target="_blank"
+      href="https://github.com/kortina/bailout-nyc"
+      onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Github', 'From top', '0')"
+      >Fork on Github</a
+    >
+  </div>
+
+  <div class="mw7 ph4 center">
+    <div style="border-bottom: 1px #6696cc solid; padding: 10px; padding-bottom: 26px;">
+      <div style="font-size: 30px; margin-top: 40px; font-weight: bold;">bailout.nyc ❤️</div>
+    </div>
+
+    <div
+      class="fl w-100 pa2"
+      style="font-size: 24px; line-height: 36px; padding: 30px 0; font-weight: 900;"
+    >
+      <strong
+        >UPDATE: <br />We are now using this account to support Nationwide Bailout Fund. <br /><a
+          href="/"
+          >Learn more</a
+        >.
+      </strong>
+    </div>
+
+    <div class="fl w-100 pa2">
+      <h1 style="font-size: 36px;">
+        Help Service Workers
+      </h1>
+      <h1 class="f4 measure">
+        Many are in financial distress due to Covid-19 business closures.
+      </h1>
+    </div>
+
+    <div class="button-wrapper" style="margin-bottom: 10px; text-align: left;">
+      <div id="all_venmo_users" class="venmo_pill"></div>
+    </div>
+
+    <div class="fl w-100 pa2">
+      <div class="bg-white br1 pa3" style="border-radius: 4px;">
+        <h3 class="f4 measure-narrow mt0">
+          Service Workers Need Help
+        </h3>
+        With businesses closing in response to Covid-19, many service workers have suddenly lost a
+        reliable income. To support them, Venmo @bailoutnyc. We'll distribute 100% of the money
+        raised to the Venmo accounts of the registered businesses listed below, so they can send it
+        to their staff.
+
+        <br />
+        <br />
+        If you'd like to support the staff of a particular business, you can also find them below
+        and contribute to them directly. <br />
+
+        <br />
+        <div id="tell_me_more_header">
+          <a
+            href=""
+            onClick="showTellMeMore(); sendGAEvent('send', 'event', 'Tell me more', 'Clicked tell me more', '0', '0'); return false;"
+            >Tell me more...</a
+          >
+        </div>
+        <div id="tell_me_more" style="display: none;">
+          <p>
+            In order to slow the spread of the coronavirus, the local government is
+            <a
+              target="_blank"
+              href="https://www1.nyc.gov/site/doh/health/health-topics/coronavirus.page"
+              >advising</a
+            >
+            restaurants, bars, cafes, nightclubs, movie theaters, small theater houses, and concert
+            venues to close. Elsewhere closures are even more comprehensive.
+          </p>
+          <p>
+            While this is prudent from a public health perspective, these closures will have a real
+            and immediate economic impact to service workers across industries. It could mean missed
+            rent or inability to pay for basic needs for many.
+          </p>
+          <p>
+            The city recognizes the economic stress this will put on service workers, and, in order
+            to incentivize businesses to keep employees on payroll, the administration has announced
+            that "businesses with fewer than 100 employees could be eligible for an interest-free
+            loan up to $75,000 as long as they can document a 25% loss in customer receipts because
+            of the coronavirus."
+          </p>
+          <p>
+            While an interest free loan is a good place to start, we believe we can do more to help
+            those affected, and are raising funds to be distributed to all the businesses affected
+            by this public health crisis.
+          </p>
+          <p>
+            The economic impacts of the coronavirus will be comparable to a very severe recession --
+            some economists estimate direct output loss of 30% for a fiscal quarter, which would
+            equate to an annual GDP loss of 7.5%.
+          </p>
+          <p>
+            Hopefully, we can anticipate the second order consequences of the coronavirus and
+            proactively work to mitigate them more swiftly than we have addressed the public health
+            concerns.
+          </p>
+          <p>
+            We cannot all be working alongside all of the heroic healthcare workers testing and
+            treating coronavirus patients, but our goal with this project is to enable every citizen
+            to do something today to mitigate the economic impact suffered by a huge number of
+            service workers.
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="bg-white br1 pa3"
+        style="border-radius: 4px; margin-top: 20px; margin-bottom: 15px;"
+      >
+        <h3 class="f4 measure-narrow mt0">
+          Add a Business
+        </h3>
+        Tell your favorite local businesses to register on bailout.nyc so we can all support their
+        staff.<br /><br />
+        If you own or operate a business affected by Covid-19,
+        <a
+          id="register_business_link"
+          style="font-weight: 900;"
+          target="_blank"
+          href=""
+          onClick="sendGAEvent('send', 'event', 'Businesses', 'Clicked form link', '0', '0')"
+          >fill out this form</a
+        >
+        to register your business for listing + relief.
+        <script>
+          document.getElementById('register_business_link').href = REGISTER_FORM_URL;
+        </script>
+      </div>
+
+      <div class="bg-white br1 pa3" style="border-radius: 4px;">
+        <h3 class="f4 measure-narrow mt0"><a name="random"></a>Anyone can use help</h3>
+        <div class="div_content_venmo_handle">
+          <div class="lucky_pill">
+            <a
+              onClick="randomlyChooseBusiness(); sendGAEvent('send', 'event', 'Randomizer', 'Clicked random business generator', '0', '0');"
+              href="#random"
+            >
+              Randomly choose a business
+            </a>
+          </div>
+        </div>
+        <div>Use this button to randomly choose a business to contribute to.</div>
+      </div>
+    </div>
+
+    <div class="fl w-100 pt10 pa2">
+      <a name="businesses"></a>
+      <div id="business_flex">
+        <div id="search_icon" class="flex_item">
+          <i class="material-icons">search</i>
+        </div>
+        <input
+          autocomplete="off"
+          id="search"
+          class="flex_item"
+          type="text"
+          placeholder="Search businesses..."
+          onkeyup="searchFilter();"
+        />
+      </div>
+      <div id="sheet" style="margin-bottom: 15px;"></div>
+    </div>
+
+    <div style="text-align: center;">
+      <a name="about-us" style="font-size: 16px; color: inherit;">About Us</a>
+      <div
+        style="
+          font-size: 12px;
+          margin-top: 12px;
+          margin-bottom: 5px;
+          margin-left: 10px;
+          margin-right: 10px;
+          text-align: center;
+        "
+      >
+        <div style="max-width: 410px; margin: 0 auto;">
+          We are a group of friends who used to work at Venmo. We built Venmo to help people support
+          each other, especially in times like these.
+        </div>
+        <br /><br />
+        ❤️<br />
+        Ny Vo - former Product Manager at Venmo <br />
+        Jesse Bentert - former Head of Product at Venmo <br />
+        Aneesh Bhoopathy - former designer at Venmo<br />
+        Iqram Magdon-Ismail - co-founder of Venmo<br />
+        Andrew Kortina - co-founder of Venmo<br /><br />
+      </div>
+    </div>
+
+    <div class="nav nav-bottom center mw7">
+      <a
+        href="#home"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked home', 'From bottom', '0')"
+        >Home</a
+      >
+      <a
+        href="#businesses"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked businesses', 'From bottom', '0')"
+        >Businesses</a
+      >
+      <a
+        target="_blank"
+        href="http://venmo.com/bailoutnyc"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Venmo', 'From bottom', '0')"
+        >Venmo</a
+      >
+      <a
+        target="_blank"
+        href="http://instagram.com/bailoutnyc"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Instagram', 'From bottom', '0')"
+        >Instagram</a
+      >
+      <a
+        target="_blank"
+        href="http://twitter.com/bailoutnyc"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Twitter', 'From bottom', '0')"
+        >Twitter</a
+      >
+      <a
+        href="#about-us"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked whos behind this', 'From bottom', '0')"
+        >About Us</a
+      >
+      <a
+        target="_blank"
+        href="https://github.com/kortina/bailout-nyc"
+        onClick="sendGAEvent('send', 'event', 'Header Links', 'Clicked Github', 'From bottom', '0')"
+        >Fork on Github</a
+      >
+    </div>
+  </div>
+
+  <script
+    type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
+  ></script>
+</body>
